@@ -1,0 +1,6 @@
+require 'talent_hack/clients/base'
+require 'talent_hack/errors/application_error'
+require 'talent_hack/interactors/application_interactor'
+require 'talent_hack/serializers/application_serializer'
+require 'talent_hack/structs/application_struct'
+require 'talent_hack/memoizable'
