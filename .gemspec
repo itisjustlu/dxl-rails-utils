@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '~> 6.1'
   s.add_dependency 'interactor', '~> 3.0'
   s.add_dependency 'faraday'
+  s.add_dependency 'jsonapi-serializer'
   s.add_development_dependency 'rspec', '~> 3.8'
 
   s.test_files = Dir['spec/**/*']
