@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails-utils (1.0.0)
+    rails_utils (1.0.0)
       activesupport (~> 6.1)
       faraday
       interactor (~> 3.0)
@@ -70,7 +70,7 @@ DEPENDENCIES
   faraday
   interactor (~> 3.0)
   jsonapi-serializer
-  rails-utils!
+  rails_utils!
   rspec (~> 3.8)
 
 BUNDLED WITH

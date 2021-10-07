@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |s|
-  s.name = 'rails-utils'
+  s.name = 'rails_utils'
   s.version     = '1.0.0'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
