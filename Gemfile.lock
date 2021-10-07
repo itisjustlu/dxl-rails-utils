@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_utils (1.0.0)
+    rails_utils (1.0.4)
       activesupport (~> 6.1)
       faraday
       interactor (~> 3.0)
