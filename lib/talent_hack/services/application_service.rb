@@ -19,7 +19,7 @@ module TalentHack
         end
 
         def modules
-          @modules ||= %w[memoizable validatable]
+          @modules ||= %i[memoizable validatable interactable]
         end
       end
     end
