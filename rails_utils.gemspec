@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'rails_utils'
-  s.version     = '1.0.4'
+  s.version     = '1.1'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
@@ -12,10 +12,12 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.add_dependency 'activesupport', '~> 6.1'
+  s.add_dependency 'activemodel', '~> 6.1'
   s.add_dependency 'interactor', '~> 3.0'
   s.add_dependency 'faraday'
   s.add_dependency 'jsonapi-serializer'
   s.add_development_dependency 'rspec', '~> 3.8'
+  s.add_development_dependency 'pry', '~> 0.13.1'
 
   s.test_files = Dir['spec/**/*']
 end

@@ -3,7 +3,7 @@
 require 'active_support/core_ext/string'
 
 module TalentHack
-  module Interactors
+  module Services
     class ApplicationInteractor
       ERROR_CLASS = ""
 

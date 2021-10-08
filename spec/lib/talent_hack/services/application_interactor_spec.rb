@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe TalentHack::Interactors::ApplicationInteractor do
+RSpec.describe TalentHack::Services::ApplicationInteractor do
   class InteractorError < TalentHack::Errors::ApplicationError; end
 
-  class InteractorTestOne < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestOne < TalentHack::Services::ApplicationInteractor
     error_class InteractorError
 
     def call
@@ -13,7 +13,7 @@ RSpec.describe TalentHack::Interactors::ApplicationInteractor do
     end
   end
 
-  class InteractorTestOneError < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestOneError < TalentHack::Services::ApplicationInteractor
     error_class InteractorError
 
     def call
@@ -22,7 +22,7 @@ RSpec.describe TalentHack::Interactors::ApplicationInteractor do
     end
   end
 
-  class InteractorTest < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTest < TalentHack::Services::ApplicationInteractor
     error_class InteractorError
 
     organize ::InteractorTestOne,
@@ -35,18 +35,18 @@ RSpec.describe TalentHack::Interactors::ApplicationInteractor do
     end
   end
 
-  class InteractorTestError < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestError < TalentHack::Services::ApplicationInteractor
     organize ::InteractorTestOneError,
              ->(context) { custom_method(context) }
   end
 
-  class InteractorTestIfONe < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestIfONe < TalentHack::Services::ApplicationInteractor
     def call
       context.is_test_if_one = true
     end
   end
 
-  class InteractorTestIfSuccess < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestIfSuccess < TalentHack::Services::ApplicationInteractor
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 
@@ -65,7 +65,7 @@ RSpec.describe TalentHack::Interactors::ApplicationInteractor do
     end
   end
 
-  class InteractorTestIfNo < TalentHack::Interactors::ApplicationInteractor
+  class InteractorTestIfNo < TalentHack::Services::ApplicationInteractor
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'jsonapi/serializer'
+
 module TalentHack
   module Serializers
     class ApplicationSerializer

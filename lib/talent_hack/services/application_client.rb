@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TalentHack
-  module Clients
-    module Base
+  module Services
+    module ApplicationClient
       attr_accessor :response
 
       def call(method = :get)

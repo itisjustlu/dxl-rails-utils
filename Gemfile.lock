@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    rails_utils (1.0.4)
+    rails_utils (1.1)
+      activemodel (~> 6.1)
       activesupport (~> 6.1)
       faraday
       interactor (~> 3.0)
@@ -10,12 +11,15 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    activemodel (6.1.4.1)
+      activesupport (= 6.1.4.1)
     activesupport (6.1.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    coderay (1.1.3)
     concurrent-ruby (1.1.9)
     diff-lcs (1.4.4)
     faraday (1.8.0)
@@ -42,8 +46,12 @@ GEM
     interactor (3.1.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    method_source (1.0.0)
     minitest (5.14.4)
     multipart-post (2.1.1)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -66,10 +74,12 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
+  activemodel (~> 6.1)
   activesupport (~> 6.1)
   faraday
   interactor (~> 3.0)
   jsonapi-serializer
+  pry (~> 0.13.1)
   rails_utils!
   rspec (~> 3.8)
 
