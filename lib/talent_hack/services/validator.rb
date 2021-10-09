@@ -3,19 +3,14 @@
 module TalentHack
   module Services
     class Validator
-      def initialize(object, validator_klass: nil)
+      def initialize(object, validator_class:, error_class:)
         @object = object
-        @validator = validator_klass&.new(object.attributes) || build_validator
+        @validator = validator_class&.new(object.attributes) || build_validator
+        @error_class = error_class
       end
 
       def call
-        return @object if @validator.valid? && @object.save
-
-        @validator.errors.messages.each do |k, v|
-          @object.errors.add k, v.first
-        end
-
-        @object
+        raise @error_class.new(@validator.errors.full_messages) unless @validator.valid?
       end
 
       private

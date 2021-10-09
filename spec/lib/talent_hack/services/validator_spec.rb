@@ -12,32 +12,22 @@ RSpec.describe ::TalentHack::Services::Validator do
     validates :name, presence: true
   end
 
-  subject { described_class.new(object, validator_klass: DummyValidator).call }
+  subject { described_class.new(object, validator_class: DummyValidator, error_class: TalentHack::Errors::ApplicationError).call }
   let(:object) { double(save: nil, attributes: attributes, errors: errors) }
   let(:attributes) { { name: 'Test' } }
   let(:errors) { double(add: nil) }
 
   describe '.call' do
-    it 'should call object save' do
-      expect(object).to receive(:save)
-      subject
-    end
-
-    it 'should not call errors add' do
-      expect(errors).to_not receive(:save)
-      subject
+    it 'should not raise an error' do
+      expect { subject }.to_not raise_error(TalentHack::Errors::ApplicationError)
     end
 
     context 'when having errors' do
       let(:attributes) { { name: nil } }
-      it 'should not save' do
-        expect(object).to_not receive(:save)
-        subject
-      end
-
-      it 'should call errors add' do
-        expect(errors).to receive(:add)
-        subject
+      it 'should not raise an error' do
+        expect { subject }.to raise_error(TalentHack::Errors::ApplicationError) { |error|
+          expect(error.message).to eq(["Name can't be blank"])
+        }
       end
     end
   end

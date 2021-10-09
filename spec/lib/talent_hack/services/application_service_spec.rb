@@ -24,8 +24,8 @@ RSpec.describe ::TalentHack::Services::ApplicationService do
       expect(DummyService.new.respond_to?(:memoize)).to eq(true)
     end
 
-    it 'should respond_to validate_and_save' do
-      expect(DummyService.new.respond_to?(:validate_and_save)).to eq(true)
+    it 'should respond_to validate' do
+      expect(DummyService.new.respond_to?(:validate)).to eq(true)
     end
   end
 
@@ -34,8 +34,8 @@ RSpec.describe ::TalentHack::Services::ApplicationService do
       expect(DummyMemoizableService.new.respond_to?(:memoize)).to eq(true)
     end
 
-    it 'should not respond_to validate_and_save' do
-      expect(DummyMemoizableService.new.respond_to?(:validate_and_save)).to eq(false)
+    it 'should not respond_to validate' do
+      expect(DummyMemoizableService.new.respond_to?(:validate)).to eq(false)
     end
   end
 
@@ -44,8 +44,8 @@ RSpec.describe ::TalentHack::Services::ApplicationService do
       expect(DummyValidatableService.new.respond_to?(:memoize)).to eq(false)
     end
 
-    it 'should respond_to validate_and_save' do
-      expect(DummyValidatableService.new.respond_to?(:validate_and_save)).to eq(true)
+    it 'should respond_to validate' do
+      expect(DummyValidatableService.new.respond_to?(:validate)).to eq(true)
     end
   end
 
@@ -54,8 +54,8 @@ RSpec.describe ::TalentHack::Services::ApplicationService do
       expect(DummyNoModulesService.new.respond_to?(:memoize)).to eq(false)
     end
 
-    it 'should not respond_to validate_and_save' do
-      expect(DummyNoModulesService.new.respond_to?(:validate_and_save)).to eq(false)
+    it 'should not respond_to validate' do
+      expect(DummyNoModulesService.new.respond_to?(:validate)).to eq(false)
     end
   end
 end
