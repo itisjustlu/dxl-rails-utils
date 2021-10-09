@@ -4,19 +4,19 @@ require 'spec_helper'
 
 RSpec.describe ::TalentHack::Services::ApplicationService do
   class DummyService < ::TalentHack::Services::ApplicationService
-    modulize
+    use
   end
 
   class DummyMemoizableService < ::TalentHack::Services::ApplicationService
-    modulize :memoizable
+    use :memoize
   end
 
   class DummyValidatableService < ::TalentHack::Services::ApplicationService
-    modulize :validatable
+    use :validator
   end
 
   class DummyNoModulesService < ::TalentHack::Services::ApplicationService
-    no_modulize
+    no_modules
   end
 
   describe 'DummyService' do

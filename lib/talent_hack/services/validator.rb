@@ -2,9 +2,7 @@
 
 module TalentHack
   module Services
-    class Validator < ::TalentHack::Services::ApplicationService
-      modulize :memoizable
-
+    class Validator
       def initialize(object, validator_klass: nil)
         @object = object
         @validator = validator_klass&.new(object.attributes) || build_validator

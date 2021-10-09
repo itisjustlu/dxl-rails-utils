@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe ::TalentHack::Helpers::Memoizable do
+RSpec.describe ::TalentHack::Helpers::MemoizeHelper do
   class DummyMemoizableClass
-    include ::TalentHack::Helpers::Memoizable
+    include ::TalentHack::Helpers::MemoizeHelper
 
     def call(str)
       memoize { str }

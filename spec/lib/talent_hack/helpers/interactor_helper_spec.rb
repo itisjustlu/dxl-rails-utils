@@ -5,8 +5,8 @@ require 'spec_helper'
 RSpec.describe "Interactor" do
   class InteractorError < TalentHack::Errors::ApplicationError; end
 
-  class InteractorTestOne < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestOne
+    include ::TalentHack::Helpers::InteractorHelper
     error_class InteractorError
 
     def call
@@ -14,8 +14,8 @@ RSpec.describe "Interactor" do
     end
   end
 
-  class InteractorTestOneError < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestOneError
+    include ::TalentHack::Helpers::InteractorHelper
     error_class InteractorError
 
     def call
@@ -24,8 +24,8 @@ RSpec.describe "Interactor" do
     end
   end
 
-  class InteractorTest < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTest
+    include ::TalentHack::Helpers::InteractorHelper
     error_class InteractorError
 
     organize ::InteractorTestOne,
@@ -38,21 +38,21 @@ RSpec.describe "Interactor" do
     end
   end
 
-  class InteractorTestError < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestError
+    include ::TalentHack::Helpers::InteractorHelper
     organize ::InteractorTestOneError,
              ->(context) { custom_method(context) }
   end
 
-  class InteractorTestIfONe < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestIfONe
+    include ::TalentHack::Helpers::InteractorHelper
     def call
       context.is_test_if_one = true
     end
   end
 
-  class InteractorTestIfSuccess < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestIfSuccess
+    include ::TalentHack::Helpers::InteractorHelper
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 
@@ -71,8 +71,8 @@ RSpec.describe "Interactor" do
     end
   end
 
-  class InteractorTestIfNo < TalentHack::Services::ApplicationService
-    modulize :interactable
+  class InteractorTestIfNo
+    include ::TalentHack::Helpers::InteractorHelper
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 

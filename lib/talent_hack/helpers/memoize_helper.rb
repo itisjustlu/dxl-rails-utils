@@ -2,7 +2,7 @@
 
 module TalentHack
   module Helpers
-    module Memoizable
+    module MemoizeHelper
       def memoize
         method_name = caller[0][/`.*'/][1..-2]
         instance_var_str = "@#{method_name}".to_sym

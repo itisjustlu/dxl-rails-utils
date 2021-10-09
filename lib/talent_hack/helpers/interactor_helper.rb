@@ -2,7 +2,7 @@
 
 module TalentHack
   module Helpers
-    module Interactable
+    module InteractorHelper
       ERROR_CLASS = ""
 
       def self.included(base)

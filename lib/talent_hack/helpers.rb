@@ -1,3 +1,4 @@
-require 'talent_hack/helpers/interactable'
-require 'talent_hack/helpers/memoizable'
-require 'talent_hack/helpers/validatable'
+require 'talent_hack/helpers/client_helper'
+require 'talent_hack/helpers/interactor_helper'
+require 'talent_hack/helpers/memoize_helper'
+require 'talent_hack/helpers/validator_helper'
