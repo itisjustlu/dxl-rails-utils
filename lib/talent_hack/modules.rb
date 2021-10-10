@@ -1,3 +1,4 @@
+require 'talent_hack/modules/models/token_generator_module'
 require 'talent_hack/modules/client_module'
 require 'talent_hack/modules/interactor_module'
 require 'talent_hack/modules/memoize_module'
