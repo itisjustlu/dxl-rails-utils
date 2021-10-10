@@ -9,3 +9,5 @@ Dir['./lib/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
 end
+
+RSpec::Expectations.configuration.on_potential_false_positives = :nothing

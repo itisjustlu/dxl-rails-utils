@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TalentHack
-  module Helpers
-    module MemoizeHelper
+  module Modules
+    module MemoizeModule
       def memoize
         method_name = caller[0][/`.*'/][1..-2]
         instance_var_str = "@#{method_name}".to_sym

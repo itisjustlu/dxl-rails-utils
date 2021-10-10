@@ -6,7 +6,7 @@ RSpec.describe "Interactor" do
   class InteractorError < TalentHack::Errors::ApplicationError; end
 
   class InteractorTestOne
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     error_class InteractorError
 
     def call
@@ -15,7 +15,7 @@ RSpec.describe "Interactor" do
   end
 
   class InteractorTestOneError
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     error_class InteractorError
 
     def call
@@ -25,7 +25,7 @@ RSpec.describe "Interactor" do
   end
 
   class InteractorTest
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     error_class InteractorError
 
     organize ::InteractorTestOne,
@@ -39,20 +39,20 @@ RSpec.describe "Interactor" do
   end
 
   class InteractorTestError
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     organize ::InteractorTestOneError,
              ->(context) { custom_method(context) }
   end
 
   class InteractorTestIfONe
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     def call
       context.is_test_if_one = true
     end
   end
 
   class InteractorTestIfSuccess
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 
@@ -72,7 +72,7 @@ RSpec.describe "Interactor" do
   end
 
   class InteractorTestIfNo
-    include ::TalentHack::Helpers::InteractorHelper
+    include ::TalentHack::Modules::InteractorModule
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
 

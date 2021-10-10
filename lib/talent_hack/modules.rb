@@ -1,0 +1,5 @@
+require 'talent_hack/modules/client_module'
+require 'talent_hack/modules/interactor_module'
+require 'talent_hack/modules/memoize_module'
+require 'talent_hack/modules/transaction_module'
+require 'talent_hack/modules/validator_module'

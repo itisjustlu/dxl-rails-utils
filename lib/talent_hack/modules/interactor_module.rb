@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module TalentHack
-  module Helpers
-    module InteractorHelper
+  module Modules
+    module InteractorModule
       ERROR_CLASS = ""
 
       def self.included(base)

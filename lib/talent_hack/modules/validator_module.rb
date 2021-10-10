@@ -3,8 +3,8 @@
 require 'active_support/core_ext/string'
 
 module TalentHack
-  module Helpers
-    module ValidatorHelper
+  module Modules
+    module ValidatorModule
       ERROR_CLASS = TalentHack::Errors::ApplicationError
       VALIDATOR_CLASS = nil
 

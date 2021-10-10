@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'interactor', '~> 3.0'
+gem 'activerecord', '~> 6.1'
 gem 'activesupport', '~> 6.1'
 gem 'activemodel', '~> 6.1'
 gem 'faraday'
