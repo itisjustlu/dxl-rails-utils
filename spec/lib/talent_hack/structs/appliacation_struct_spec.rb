@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe ::TalentHack::Structs::ApplicationStruct do
-  class DummyStruct < Struct.new(:test)
-    include ::TalentHack::Structs::ApplicationStruct
+  class DummyStruct < TalentHack::Structs::ApplicationStruct
+    attribute :test, ::TalentHack::Structs::Types::String
   end
 
   describe '.initialize' do
