@@ -3,9 +3,10 @@
 module TalentHack
   module Services
     class Validator
-      def initialize(object, validator_class:, error_class:)
+      def initialize(object, attributes: nil, validator_class: nil, error_class: nil)
         @object = object
-        @validator = validator_class&.new(object.attributes) || build_validator
+        @attributes = attributes || object.attributes
+        @validator = validator_class&.new(@attributes) || build_validator
         @error_class = error_class
       end
 
@@ -16,7 +17,7 @@ module TalentHack
       private
 
       def build_validator
-        "#{@object.class.name}Validator".constantize.new(@object.attributes)
+        "#{@object.class.name}Validator".constantize.new(@attributes)
       end
     end
   end
