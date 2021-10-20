@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_utils (1.4.0)
+    rails_utils (1.6.0)
       activemodel (~> 6.1)
       activerecord (~> 6.1)
       activesupport (~> 6.1)
@@ -9,6 +9,7 @@ PATH
       faraday
       interactor (~> 3.0)
       jsonapi-serializer
+      jwt
 
 GEM
   remote: https://rubygems.org/
@@ -74,6 +75,7 @@ GEM
     interactor (3.1.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    jwt (2.3.0)
     method_source (1.0.0)
     minitest (5.14.4)
     multipart-post (2.1.1)
@@ -109,6 +111,7 @@ DEPENDENCIES
   faraday
   interactor (~> 3.0)
   jsonapi-serializer
+  jwt
   pry (~> 0.13.1)
   rails_utils!
   rspec (~> 3.8)

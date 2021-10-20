@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'rails_utils'
-  s.version     = '1.5.0'
+  s.version     = '1.6.0'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'interactor', '~> 3.0'
   s.add_dependency 'faraday'
   s.add_dependency 'jsonapi-serializer'
+  s.add_dependency 'jwt'
   s.add_development_dependency 'rspec', '~> 3.8'
   s.add_development_dependency 'pry', '~> 0.13.1'
 

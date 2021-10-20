@@ -8,34 +8,40 @@ module TalentHack
       module Authenticable
         extend ActiveSupport::Concern
 
-        included do
-          alias_method :authenticate_talent!, :authenticate_user!
+        def authenticate_lazy_user!
+          authenticate_lazy_user
+          invalid_authentication unless current_user_uuid
         end
 
-        def authenticate_user
-          load_current_user!
-        rescue JWT::DecodeError
-          invalid_authentication
+        def authenticate_lazy_user
+          with_jwt_rescue { load_user_uuid! }
         end
 
-        # Validates the token and user and sets the @current_user scope
-        def authenticate_user!
-          authenticate_user
-          invalid_authentication unless @current_user
+        def authenticate_lazy_talent!
+          authenticate_lazy_talent
+          invalid_authentication unless current_talent_uuid
         end
 
-        # Returns 401 response. To handle malformed / invalid requests.
-        def invalid_authentication
-          render json: {error: 'Invalid Request'}, status: 401
+        def authenticate_lazy_talent
+          with_jwt_rescue { load_talent_uuid! }
         end
 
         private
 
-        def secret_key
-          Rails.application.secrets.jwt_secret
+        def with_jwt_rescue
+          yield
+        rescue JWT::DecodeError
+          invalid_authentication
         end
 
-        # Deconstructs the Authorization header and decodes the JWT token.
+        def invalid_authentication
+          render json: {error: 'Invalid Request'}, status: 401
+        end
+
+        def secret_key
+          ENV.fetch('JWT_SECRET', 'theth')
+        end
+
         def payload
           auth_header = request.headers['X-Th-Authorization']
           token = auth_header.split(' ').last
@@ -44,18 +50,22 @@ module TalentHack
           nil
         end
 
-        # Sets the @current_user with the user_id from payload
-        def load_current_user!
+        def load_user_uuid!
           return unless payload.present?
-          @current_user ||= User.find_by(id: payload[0]['user_id'])
+          @current_user_uuid = payload[0]['user_uuid']
         end
 
-        def current_user
-          @current_user
+        def load_talent_uuid!
+          return unless payload.present?
+          @current_talent_uuid = payload[0]['talent_uuid']
         end
 
-        def current_talent
-          @current_user.talent
+        def current_user_uuid
+          @current_user_uuid
+        end
+
+        def current_talent_uuid
+          @current_talent_uuid
         end
       end
     end

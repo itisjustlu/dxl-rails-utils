@@ -9,6 +9,7 @@ gem 'activemodel', '~> 6.1'
 gem 'faraday'
 gem 'jsonapi-serializer'
 gem 'dry-struct', '~> 1.0'
+gem 'jwt'
 
 group :test do
   gem 'rspec', '~> 3.8'
