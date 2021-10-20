@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_utils (1.7.1)
+    rails_utils (1.7.3)
       activemodel (~> 6.1)
       activerecord (~> 6.1)
       activesupport (~> 6.1)

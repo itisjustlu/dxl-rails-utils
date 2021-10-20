@@ -14,9 +14,17 @@ module TalentHack
           JSON.parse(response.body)
         end
 
-        def jwt_token(user)
+        def jwt_token_talent(talent)
           JWT.encode(
-            { user_id: user.id },
+            { talent_uuid: talent.uuid },
+            ENV.fetch('JWT_SECRET', 'theth'),
+            'HS256'
+          )
+        end
+
+        def jwt_token_user(user)
+          JWT.encode(
+            { user_uuid: user.uuid },
             ENV.fetch('JWT_SECRET', 'theth'),
             'HS256'
           )
@@ -30,7 +38,12 @@ module TalentHack
 
         def rswag_authenticate_user!
           parameter name: 'X-Th-Authorization', :in => :header, :type => :string
-          let!(:'X-Th-Authorization') { "Bearer #{jwt_token(user)}" }
+          let!(:'X-Th-Authorization') { "Bearer #{jwt_token_user(user)}" }
+        end
+
+        def rswag_authenticate_talent!
+          parameter name: 'X-Th-Authorization', :in => :header, :type => :string
+          let!(:'X-Th-Authorization') { "Bearer #{jwt_token_talent(talent)}" }
         end
 
         def lambda_request
