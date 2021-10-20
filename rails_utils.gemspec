@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'rails_utils'
-  s.version     = '1.7.1'
+  s.version     = '1.7.2'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
