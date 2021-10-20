@@ -2,56 +2,48 @@
 
 require 'jwt'
 
-module TalentHack
-  module Modules
-    module Specs
-      module Support
-        def json_fixture(path)
-          JSON.parse(file_fixture("#{path}.json").read).deep_symbolize_keys
-        end
+def json_fixture(path)
+  JSON.parse(file_fixture("#{path}.json").read).deep_symbolize_keys
+end
 
-        def json_body
-          JSON.parse(response.body)
-        end
+def json_body
+  JSON.parse(response.body)
+end
 
-        def jwt_token_talent(talent)
-          JWT.encode(
-            { talent_uuid: talent.uuid },
-            ENV.fetch('JWT_SECRET', 'theth'),
-            'HS256'
-          )
-        end
+def jwt_token_talent(talent)
+  JWT.encode(
+    { talent_uuid: talent.uuid },
+    ENV.fetch('JWT_SECRET', 'theth'),
+    'HS256'
+  )
+end
 
-        def jwt_token_user(user)
-          JWT.encode(
-            { user_uuid: user.uuid },
-            ENV.fetch('JWT_SECRET', 'theth'),
-            'HS256'
-          )
-        end
+def jwt_token_user(user)
+  JWT.encode(
+    { user_uuid: user.uuid },
+    ENV.fetch('JWT_SECRET', 'theth'),
+    'HS256'
+  )
+end
 
-        def rswag_json!(tag:)
-          tags tag
-          consumes 'application/json'
-          produces 'application/json'
-        end
+def rswag_json!(tag:)
+  tags tag
+  consumes 'application/json'
+  produces 'application/json'
+end
 
-        def rswag_authenticate_user!
-          parameter name: 'X-Th-Authorization', :in => :header, :type => :string
-          let!(:'X-Th-Authorization') { "Bearer #{jwt_token_user(user)}" }
-        end
+def rswag_authenticate_user!
+  parameter name: 'X-Th-Authorization', :in => :header, :type => :string
+  let!(:'X-Th-Authorization') { "Bearer #{jwt_token_user(user)}" }
+end
 
-        def rswag_authenticate_talent!
-          parameter name: 'X-Th-Authorization', :in => :header, :type => :string
-          let!(:'X-Th-Authorization') { "Bearer #{jwt_token_talent(talent)}" }
-        end
+def rswag_authenticate_talent!
+  parameter name: 'X-Th-Authorization', :in => :header, :type => :string
+  let!(:'X-Th-Authorization') { "Bearer #{jwt_token_talent(talent)}" }
+end
 
-        def lambda_request
-          before do |example|
-            @lambda = -> { submit_request(example.metadata) }
-          end
-        end
-      end
-    end
+def lambda_request
+  before do |example|
+    @lambda = -> { submit_request(example.metadata) }
   end
 end
