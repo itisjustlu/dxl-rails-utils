@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    rails_utils (1.7.6)
-      activemodel (~> 6.1)
-      activerecord (~> 6.1)
-      activesupport (~> 6.1)
+    rails_utils (1.8)
+      activemodel (~> 6)
+      activerecord (~> 6)
+      activesupport (~> 6)
       dry-struct (~> 1.0)
       faraday
       interactor (~> 3.0)
@@ -160,9 +160,9 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  activemodel (~> 6.1)
-  activerecord (~> 6.1)
-  activesupport (~> 6.1)
+  activemodel (~> 6)
+  activerecord (~> 6)
+  activesupport (~> 6)
   dry-struct (~> 1.0)
   faraday (~> 1.8.0)
   interactor (~> 3.0)
