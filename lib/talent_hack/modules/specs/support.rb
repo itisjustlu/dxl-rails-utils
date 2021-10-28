@@ -47,3 +47,11 @@ def lambda_request
     @lambda = -> { submit_request(example.metadata) }
   end
 end
+
+def schema_builder(serializer, klass, relationships: nil)
+  ::Schemas::Builder.new(serializer, klass, relationships: relationships).call
+end
+
+def schema_form_builder(klass)
+  parameter name: :params, in: :body, schema: { type: :object, properties: klass.new.call }
+end
