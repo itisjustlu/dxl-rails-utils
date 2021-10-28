@@ -116,7 +116,7 @@ module TalentHack
       end
 
       def relationships
-        ::Schemas::RelationshipsBuilder.new(@serializer, relationships: @relationships).call
+        ::TalentHack::Schemas::RelationshipsBuilder.new(@serializer, relationships: @relationships).call
       end
     end
   end

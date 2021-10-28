@@ -27,7 +27,7 @@ module TalentHack
         @relationships.map do |relationship|
           relationship_value = @serializer.relationships_to_serialize[relationship]
           klass = fetch_klass(relationship_value)
-          ::Schemas::AttributesBuilder.new(relationship_value.serializer, cast_klass(klass).constantize, relationships: nil).call
+          ::TalentHack::Schemas::AttributesBuilder.new(relationship_value.serializer, cast_klass(klass).constantize, relationships: nil).call
         end
       end
 
