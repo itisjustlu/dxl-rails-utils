@@ -1,0 +1,5 @@
+require 'talent_hack/schemas/forms/builder'
+require 'talent_hack/schemas/attributes_builder'
+require 'talent_hack/schemas/builder'
+require 'talent_hack/schemas/included_builder'
+require 'talent_hack/schemas/relationships_builder'
