@@ -49,7 +49,7 @@ def lambda_request
 end
 
 def schema_builder(serializer, klass, relationships: nil)
-  ::Schemas::Builder.new(serializer, klass, relationships: relationships).call
+  ::TalentHack::Schemas::Builder.new(serializer, klass, relationships: relationships).call
 end
 
 def schema_form_builder(klass)
