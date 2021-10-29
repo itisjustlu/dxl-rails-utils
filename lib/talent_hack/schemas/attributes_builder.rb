@@ -59,6 +59,8 @@ module TalentHack
       end
 
       def build_column(method)
+        return serialized_column(method) if is_serialized?(method)
+
         {
           type: cast_type(method),
           nullable: true,
@@ -95,11 +97,20 @@ module TalentHack
           datetime: :string,
           float: :number,
           decimal: :number,
+          jsonb: :number,
         }[column_types[method]] || column_types[method]
+      end
+
+      def serialized_column(method)
+        ::TalentHack::Schemas::SerializedBuilder.new(@klass, method).call
       end
 
       def is_enum?(method)
         Array(@klass).first.defined_enums[method.to_s].present?
+      end
+
+      def is_serialized?(method)
+        Array(@klass).first.serialized_attributes[method.to_sym].present?
       end
 
       def to_enum(_method)
