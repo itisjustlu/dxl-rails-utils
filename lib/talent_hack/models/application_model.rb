@@ -3,6 +3,8 @@
 module TalentHack
   module Models
     class ApplicationModel < ActiveRecord::Base
+      self.abstract_class = true
+
       class << self
         def serialized_attributes
           @serialized_attributes ||= {}
