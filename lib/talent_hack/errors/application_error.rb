@@ -11,6 +11,12 @@ module TalentHack
         @status = status
         super(msg)
       end
+
+      def context
+        Struct
+          .new(:error, :status)
+          .new(message, status)
+      end
     end
   end
 end
