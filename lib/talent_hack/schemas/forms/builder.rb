@@ -11,7 +11,7 @@ module TalentHack
         def call
           "#{self.class}::PROPERTIES".constantize.each_with_object({}) do |(key, value), hash|
             hash[key] = if value.respond_to?(:call)
-              value.call
+              value.call(@klass)
             else
               { type: value }
             end
