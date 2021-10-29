@@ -1,5 +1,6 @@
 require 'talent_hack/controllers/api/authenticable'
 require 'talent_hack/errors/application_error'
+require 'talent_hack/models/application_model'
 require 'talent_hack/modules'
 require 'talent_hack/schemas'
 require 'talent_hack/serializers/application_serializer'
