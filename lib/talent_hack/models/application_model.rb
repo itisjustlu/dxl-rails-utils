@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_record'
+
 module TalentHack
   module Models
     class ApplicationModel < ActiveRecord::Base

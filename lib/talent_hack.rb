@@ -8,4 +8,4 @@ require 'talent_hack/serializers/application_serializer'
 require 'talent_hack/services'
 require 'talent_hack/structs/application_struct'
 
-require 'talent_hack/tasks/one_timers.rake'
+require 'talent_hack/tasks/one_timers'

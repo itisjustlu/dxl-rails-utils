@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rake/task'
+require 'rake'
 require 'talent_hack/models/rakes/one_timer'
 
 namespace :one_timers do
