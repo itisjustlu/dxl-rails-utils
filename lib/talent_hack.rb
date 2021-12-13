@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'talent_hack/engine'
+
 require 'talent_hack/controllers/api/authenticable'
 require 'talent_hack/errors/application_error'
 require 'talent_hack/models/application_model'
