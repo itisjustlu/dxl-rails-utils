@@ -9,3 +9,4 @@ require 'talent_hack/services'
 require 'talent_hack/structs/application_struct'
 
 require 'talent_hack/tasks/one_timers'
+require 'generators/talent_hack/install/install_generator'
