@@ -142,4 +142,31 @@ RSpec.describe "Interactor" do
       end
     end
   end
+
+  describe '.required_context' do
+    class InteractorTestRequiredContext
+      include ::TalentHack::Modules::InteractorModule
+      required_context :test
+    end
+
+    context 'when required context is provided' do
+      subject { InteractorTestRequiredContext.call(test: 'lu') }
+
+      it 'should not raise an error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'should be success' do
+        expect(subject.success?).to eq(true)
+      end
+    end
+
+    context 'when required context is not provided' do
+      subject { InteractorTestRequiredContext.call!({}) }
+
+      it 'should raise an error' do
+        expect { subject }.to raise_error(::TalentHack::Errors::Interactors::MissingContextError)
+      end
+    end
+  end
 end
