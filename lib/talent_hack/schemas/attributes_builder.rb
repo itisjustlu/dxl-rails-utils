@@ -110,6 +110,8 @@ module TalentHack
       end
 
       def is_serialized?(method)
+        return false unless Array(@klass).first.try(:serialized_attributes)
+
         Array(@klass).first.serialized_attributes[method.to_sym].present?
       end
 
