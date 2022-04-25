@@ -1,0 +1,6 @@
+require 'dxl/modules/models/token_generator_module'
+require 'dxl/modules/client_module'
+require 'dxl/modules/interactor_module'
+require 'dxl/modules/memoize_module'
+require 'dxl/modules/transaction_module'
+require 'dxl/modules/validator_module'
