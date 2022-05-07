@@ -70,7 +70,7 @@ module DXL
           super
         rescue => e
           if Object.const_get("#{self.class}::ERROR_CLASS").present?
-            raise "#{self.class}::ERROR_CLASS".constantize.new(e.context.error, e.context.status || 422)
+            raise "#{self.class}::ERROR_CLASS".constantize.new(e.respond_to?(:context) ? (e.context.try(:error) || e.context) : e.message, e.context.status || 422)
           elsif e.is_a?(::DXL::Errors::Interactors::MissingContextError)
             raise e
           else
