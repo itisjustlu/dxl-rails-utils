@@ -9,11 +9,16 @@ module DXL
         def attrs
           self.schema.keys.map(&:name)
         end
-      end
 
-      def assign_attributes(attrs)
-        attrs.each do |key, value|
-          self.attributes[key] = value
+        def load(object)
+          struct = allocate
+          object = (object || {}).deep_symbolize_keys
+          struct.__send__(:initialize, object)
+          struct
+        end
+
+        def dump(object)
+          JSON.parse(object.to_json)
         end
       end
     end

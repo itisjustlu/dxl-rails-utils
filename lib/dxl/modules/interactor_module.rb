@@ -80,6 +80,11 @@ module DXL
           end
         end
 
+        def run
+          super
+        rescue => _
+        end
+
         private
 
         def organized_call

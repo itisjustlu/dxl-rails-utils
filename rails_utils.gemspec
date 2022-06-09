@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '2.0.1'
+  s.version     = '2.1.0'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
@@ -17,10 +17,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'dry-struct', '~> 1.0'
   s.add_dependency 'interactor', '~> 3.0'
   s.add_dependency 'faraday'
+  s.add_dependency 'faraday_middleware'
   s.add_dependency 'jsonapi-serializer'
   s.add_dependency 'jwt'
   s.add_development_dependency 'rspec', '~> 3.8'
   s.add_development_dependency 'pry', '~> 0.13.1'
+  s.add_development_dependency 'sqlite3', '~> 1.4'
+  s.add_development_dependency 'database_cleaner'
 
   s.test_files = Dir['spec/**/*']
 end
