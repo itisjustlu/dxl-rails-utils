@@ -14,7 +14,7 @@ Recomendamos poner los clients dentro de app/lib/clients, lo primero que debemos
 ```ruby
 # app/lib/application_client.rb
 
-class ApplicationClient < ::TalentHack::Services::ApplicationService
+class ApplicationClient < ::DXL::Services::ApplicationService
   behave_as :client
 end
 ```
