@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'interactor'
+
 module DXL
   module Modules
     module InteractorModule
