@@ -11,11 +11,11 @@ module DXL
           }.freeze
 
           def page
-            context.opts[:page] || DEFAULT[:page]
+            (context.opts[:page] || DEFAULT[:page]).to_i
           end
 
           def per
-            context.opts[:per] || DEFAULT[:per]
+            (context.opts[:per] || DEFAULT[:per]).to_i
           end
           alias_method :limit, :per
 
