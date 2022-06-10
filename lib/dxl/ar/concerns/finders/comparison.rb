@@ -37,6 +37,10 @@ module DXL
               @eq ||= eq.flatten
             end
 
+            def find_ilike(*ilike)
+              @ilike = ilike.flatten
+            end
+
             def gte
               @gte
             end
@@ -56,11 +60,16 @@ module DXL
             def eq
               @eq || []
             end
+
+            def ilike
+              @ilike || []
+            end
           end
 
           module InstanceMethods
             def apply_comparison
               apply_eq
+              apply_ilike
               apply_gte
               apply_gt
               apply_lte
@@ -73,6 +82,14 @@ module DXL
               self.class.eq.each do |eq|
                 if context.opts["#{eq}_eq".to_sym].present?
                   context.relation = context.relation.where(eq => context.opts["#{eq}_eq".to_sym])
+                end
+              end
+            end
+
+            def apply_ilike
+              self.class.ilike.each do |ilike|
+                if context.opts["#{ilike}_matching".to_sym].present?
+                  context.relation = context.relation.where(ilike => context.opts["#{ilike}_matching".to_sym])
                 end
               end
             end
