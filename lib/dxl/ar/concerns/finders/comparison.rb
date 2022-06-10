@@ -89,7 +89,7 @@ module DXL
             def apply_ilike
               self.class.ilike.each do |ilike|
                 if context.opts["#{ilike}_matching".to_sym].present?
-                  context.relation = context.relation.where(ilike => context.opts["#{ilike}_matching".to_sym])
+                  context.relation = context.relation.where("#{ilike} ILIKE ?", "%#{context.opts["#{ilike}_matching".to_sym]}%")
                 end
               end
             end
