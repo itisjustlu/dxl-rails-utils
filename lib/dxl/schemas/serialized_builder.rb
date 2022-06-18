@@ -24,7 +24,7 @@ module DXL
       end
 
       def properties
-        return properties_object unless @data_klass < ::DXL::Structs::ApplicationStructArray
+        return properties_object unless data_klass < ::DXL::Structs::ApplicationStructArray
 
         {
           type: :array,
