@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'dxl/structs/application_struct_array'
+
 module DXL
   module Schemas
     class SerializedBuilder
@@ -22,6 +24,15 @@ module DXL
       end
 
       def properties
+        return properties_object unless @data_klass < ::DXL::Structs::ApplicationStructArray
+
+        {
+          type: :array,
+          items: properties_object
+        }
+      end
+
+      def properties_object
         data_klass.schema.keys.each_with_object({}).each do |key, hash|
           hash[key.name] = {
             type: type_mapper[key.type.name],
