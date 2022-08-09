@@ -7,7 +7,6 @@ module DXL
     class Finder < ::DXL::Services::ApplicationService
       behave_as :interactor
       CONCERNS = [:associations, :comparison, :pagination, :order]
-      DEFAULT_PER = 20
 
       CONCERNS.each do |concern|
         include "DXL::AR::Concerns::Finders::#{concern.to_s.camelize}".constantize
@@ -34,6 +33,7 @@ module DXL
         apply_concerns
         apply_finders
         assign_key
+        count! if !!context.count
       end
 
       private
@@ -59,6 +59,11 @@ module DXL
       def assign_key
         context.send("#{key}=", context.relation)
         context.relation = nil
+      end
+
+      def count!
+        results = context.send(key).except(:offset, :limit, :order).count
+        context.total_pages = (results.to_f / context.per_page.to_f).ceil
       end
     end
   end

@@ -30,6 +30,14 @@ RSpec.describe ::DXL::AR::Finder do
         expect(organizations.size).to eq(5)
       end
 
+      it 'returns page' do
+        expect(subject.page).to eq(1)
+      end
+
+      it 'returns per' do
+        expect(subject.per_page).to eq(20)
+      end
+
       context 'when per_page is set' do
         let(:opts) { { page: 1, per: 2 } }
 
@@ -49,6 +57,22 @@ RSpec.describe ::DXL::AR::Finder do
 
         it 'returns paginated results' do
           expect(organizations.size).to eq(3)
+        end
+
+        it 'returns page' do
+          expect(subject.page).to eq(1)
+        end
+
+        it 'returns per' do
+          expect(subject.per_page).to eq(3)
+        end
+
+        context 'when context count is true' do
+          subject { described_class.call(key: :organizations, object_class: Organization, opts: opts, count: true) }
+
+          it 'returns total pages' do
+            expect(subject.total_pages).to eq(2)
+          end
         end
       end
     end

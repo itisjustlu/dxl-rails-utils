@@ -31,6 +31,8 @@ module DXL
 
           def apply_pagination
             context.relation = context.relation.offset(offset).limit(limit)
+            context.page = page
+            context.per_page = per
           end
         end
       end
