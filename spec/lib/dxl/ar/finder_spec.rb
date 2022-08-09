@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
+
 RSpec.describe ::DXL::AR::Finder do
   subject { described_class.call(key: :organizations, object_class: Organization, opts: opts) }
 
@@ -21,6 +21,36 @@ RSpec.describe ::DXL::AR::Finder do
 
     it 'returns all results' do
       expect(organizations.size).to eq(5)
+    end
+
+    describe '.pagination' do
+      let(:opts) { { page: 1 } }
+
+      it 'returns paginated results' do
+        expect(organizations.size).to eq(5)
+      end
+
+      context 'when per_page is set' do
+        let(:opts) { { page: 1, per: 2 } }
+
+        it 'returns paginated results' do
+          expect(organizations.size).to eq(2)
+        end
+      end
+
+      context 'when configuration is set' do
+        let(:opts) { { page: 1 } }
+
+        before do
+          DXL::AR::Configuration.configure do |config|
+            config.per_page = 3
+          end
+        end
+
+        it 'returns paginated results' do
+          expect(organizations.size).to eq(3)
+        end
+      end
     end
   end
 end

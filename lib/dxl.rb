@@ -2,7 +2,6 @@
 
 require 'dxl/engine'
 
-require 'dxl/controllers/api/authenticable'
 require 'dxl/errors/application_error'
 require 'dxl/errors/interactors/missing_context_error'
 require 'dxl/models/application_model'

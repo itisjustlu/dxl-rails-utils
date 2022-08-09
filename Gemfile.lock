@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dxl (2.3.1)
+    dxl (2.4.0)
       activemodel (~> 7)
       activerecord (~> 7)
       activesupport (~> 7)

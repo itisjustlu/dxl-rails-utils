@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'dxl/ar/configuration'
+
 module DXL
   module AR
     module Concerns
@@ -15,9 +17,13 @@ module DXL
           end
 
           def per
-            (context.opts[:per] || DEFAULT[:per]).to_i
+            (context.opts[:per] || default_per_page).to_i
           end
           alias_method :limit, :per
+
+          def default_per_page
+            DXL::AR::Configuration.configuration.per_page || DEFAULT[:per]
+          end
 
           def offset
             (page - 1) * per
