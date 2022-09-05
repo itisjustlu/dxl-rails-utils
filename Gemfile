@@ -3,9 +3,9 @@
 source 'https://rubygems.org'
 
 gem 'interactor', '~> 3.0'
-gem 'activerecord', '~> 7'
-gem 'activesupport', '~> 7'
-gem 'activemodel', '~> 7'
+gem 'activerecord', '>= 6'
+gem 'activesupport', '>= 6'
+gem 'activemodel', '>= 6'
 gem 'faraday', '~> 1.8.0'
 gem 'faraday_middleware'
 gem 'jsonapi-serializer', '~> 2.2.0'
