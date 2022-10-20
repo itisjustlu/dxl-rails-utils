@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    dxl (2.5.0)
-      activemodel (~> 7)
-      activerecord (~> 7)
-      activesupport (~> 7)
+    dxl (2.6.0)
+      activemodel (>= 6)
+      activerecord (>= 6)
+      activesupport (>= 6)
       dry-struct (~> 1.0)
       faraday
       faraday_middleware
@@ -170,9 +170,9 @@ PLATFORMS
   x86_64-darwin-19
 
 DEPENDENCIES
-  activemodel (~> 7)
-  activerecord (~> 7)
-  activesupport (~> 7)
+  activemodel (>= 6)
+  activerecord (>= 6)
+  activesupport (>= 6)
   database_cleaner
   dry-struct (~> 1.0)
   dxl!

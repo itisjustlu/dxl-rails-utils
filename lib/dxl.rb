@@ -10,7 +10,6 @@ require 'dxl/schemas'
 require 'dxl/serializers/application_serializer'
 require 'dxl/services'
 require 'dxl/ar'
-require 'dxl/structs'
 
 require 'dxl/tasks/one_timers'
 require 'generators/dxl/install/install_generator'

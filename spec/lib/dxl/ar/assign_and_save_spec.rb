@@ -16,7 +16,7 @@ RSpec.describe ::DXL::AR::AssignAndSave do
       let(:opts) { { title: nil } }
 
       it 'fails' do
-        expect { subject }.to raise_error(DXL::Errors::AR::SaveError)
+        expect { subject }.to raise_error(Interactor::Failure)
       end
     end
   end

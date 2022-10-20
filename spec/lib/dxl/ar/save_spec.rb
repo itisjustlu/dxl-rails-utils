@@ -16,7 +16,7 @@ RSpec.describe ::DXL::AR::Save do
       let(:question) { Question.new }
 
       it 'fails' do
-        expect { subject }.to raise_error(DXL::Errors::AR::SaveError)
+        expect { subject }.to raise_error(Interactor::Failure)
       end
 
       context 'passive call' do

@@ -5,8 +5,6 @@ require 'interactor'
 module DXL
   module Modules
     module InteractorModule
-      ERROR_CLASS = ""
-
       def self.included(base)
         base.class_eval do
           include ::Interactor::Organizer
@@ -16,10 +14,6 @@ module DXL
       end
 
       module ClassMethods
-        def error_class(klass)
-          const_set("ERROR_CLASS", klass)
-        end
-
         def required_context(*args)
           args.each do |key|
             _required_keys << key
@@ -66,25 +60,6 @@ module DXL
         def call
           return organized_call if self.class.organized.length > 0
           super
-        end
-
-        def run!
-          super
-        rescue => e
-          if Object.const_get("#{self.class}::ERROR_CLASS").present?
-            raise "#{self.class}::ERROR_CLASS".constantize.new(e.respond_to?(:context) ? (e.context.try(:error) || e.context) : e.message, e.context.status || 422)
-          elsif e.is_a?(::DXL::Errors::Interactors::MissingContextError)
-            raise e
-          else
-            raise ::Interactor::Failure.new(
-              e.respond_to?(:context) ? (e.context.try(:error) || e.context) : e.message
-            )
-          end
-        end
-
-        def run
-          super
-        rescue => _
         end
 
         private

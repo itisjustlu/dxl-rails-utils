@@ -3,11 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe "Interactor" do
-  class InteractorError < DXL::Errors::ApplicationError; end
-
   class InteractorTestOne
     include ::DXL::Modules::InteractorModule
-    error_class InteractorError
 
     def call
       context.is_test_one = true
@@ -16,7 +13,6 @@ RSpec.describe "Interactor" do
 
   class InteractorTestOneError
     include ::DXL::Modules::InteractorModule
-    error_class InteractorError
 
     def call
       context.error = "Some error"
@@ -26,7 +22,6 @@ RSpec.describe "Interactor" do
 
   class InteractorTest
     include ::DXL::Modules::InteractorModule
-    error_class InteractorError
 
     organize ::InteractorTestOne,
              ->(context) { custom_method(context) }
@@ -110,9 +105,7 @@ RSpec.describe "Interactor" do
       subject { ::InteractorTestError.new.call }
 
       it 'should raise an error' do
-        expect { subject }.to raise_error(InteractorError) { |error|
-          expect(error.message).to eq('Some error')
-        }
+        expect { subject }.to raise_error(Interactor::Failure)
       end
     end
 
