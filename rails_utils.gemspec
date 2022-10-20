@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '2.7.0'
+  s.version     = '2.8.0'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
