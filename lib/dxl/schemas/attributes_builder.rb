@@ -16,6 +16,10 @@ module DXL
 
       private
 
+      def attribute_types
+        @attribute_types ||= Array(@klass).first.attribute_types
+      end
+
       def is_array?
         @klass.is_a?(Array)
       end
@@ -59,7 +63,16 @@ module DXL
       end
 
       def build_column(method)
-        return serialized_column(method) if is_serialized?(method)
+        if column_types[method] == :json && attribute_types[method.to_s].instance_variable_get("@model_klass")
+          return ::DXL::Schemas::SerializedBuilder.new(@klass, method).call
+        end
+
+        if column_types[method] == :array && attribute_types[method.to_s].instance_variable_get("@model_klass")
+          return {
+            type: :array,
+            items: ::DXL::Schemas::SerializedBuilder.new(@klass, method).call
+          }
+        end
 
         {
           type: cast_type(method),
@@ -83,8 +96,9 @@ module DXL
       end
 
       def column_types
-        @column_types ||= Array(@klass).first.columns.each_with_object({}) do |column, hash|
-          hash[column.name.to_sym] = column.sql_type_metadata.type
+        @column_types ||= attribute_types.each_with_object({}) do |(key, value), hash|
+          hash[key.to_sym] = value.type
+          hash
         end
       end
 
@@ -101,18 +115,8 @@ module DXL
         }[column_types[method]] || column_types[method]
       end
 
-      def serialized_column(method)
-        ::DXL::Schemas::SerializedBuilder.new(@klass, method).call
-      end
-
       def is_enum?(method)
         Array(@klass).first.defined_enums[method.to_s].present?
-      end
-
-      def is_serialized?(method)
-        return false unless Array(@klass).first.try(:serialized_attributes)
-
-        Array(@klass).first.serialized_attributes[method.to_sym].present?
       end
 
       def to_enum(_method)

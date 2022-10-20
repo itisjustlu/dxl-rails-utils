@@ -9,9 +9,9 @@ gem 'activemodel', '>= 6'
 gem 'faraday', '~> 1.8.0'
 gem 'faraday_middleware'
 gem 'jsonapi-serializer', '~> 2.2.0'
-gem 'dry-struct', '~> 1.0'
 gem 'jwt', '~> 2.3.0'
 gem 'rswag'
+gem 'store_model'
 
 group :test do
   gem 'sqlite3', '~> 1.4'

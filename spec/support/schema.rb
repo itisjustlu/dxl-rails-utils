@@ -6,12 +6,14 @@ ActiveRecord::Schema.define do
   create_table :questions, :force => true do |t|
     t.string :title
     t.string :description
+    t.json :data
     t.integer :organization_id
     t.timestamps
   end
 
   create_table :organizations, :force => true do |t|
     t.string :title
+    t.json :data
     t.timestamps
   end
 end

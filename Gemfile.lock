@@ -1,16 +1,16 @@
 PATH
   remote: .
   specs:
-    dxl (2.6.0)
+    dxl (2.7.0)
       activemodel (>= 6)
       activerecord (>= 6)
       activesupport (>= 6)
-      dry-struct (~> 1.0)
       faraday
       faraday_middleware
       interactor (~> 3.0)
       jsonapi-serializer
       jwt
+      store_model
 
 GEM
   remote: https://rubygems.org/
@@ -51,28 +51,6 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     diff-lcs (1.5.0)
-    dry-configurable (0.15.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 0.6)
-    dry-container (0.9.0)
-      concurrent-ruby (~> 1.0)
-      dry-configurable (~> 0.13, >= 0.13.0)
-    dry-core (0.7.1)
-      concurrent-ruby (~> 1.0)
-    dry-inflector (0.2.1)
-    dry-logic (1.2.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 0.5, >= 0.5)
-    dry-struct (1.4.0)
-      dry-core (~> 0.5, >= 0.5)
-      dry-types (~> 1.5)
-      ice_nine (~> 0.11)
-    dry-types (1.5.1)
-      concurrent-ruby (~> 1.0)
-      dry-container (~> 0.3)
-      dry-core (~> 0.5, >= 0.5)
-      dry-inflector (~> 0.1, >= 0.1.2)
-      dry-logic (~> 1.0, >= 1.0.2)
     erubi (1.10.0)
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
@@ -97,7 +75,6 @@ GEM
       faraday (~> 1.0)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    ice_nine (0.11.2)
     interactor (3.1.2)
     json-schema (2.8.1)
       addressable (>= 2.4)
@@ -161,6 +138,8 @@ GEM
       railties (>= 3.1, < 7.1)
     ruby2_keywords (0.0.5)
     sqlite3 (1.4.2)
+    store_model (0.8.0)
+      activerecord (>= 5.2)
     thor (1.2.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -174,7 +153,6 @@ DEPENDENCIES
   activerecord (>= 6)
   activesupport (>= 6)
   database_cleaner
-  dry-struct (~> 1.0)
   dxl!
   faraday (~> 1.8.0)
   faraday_middleware
@@ -185,6 +163,7 @@ DEPENDENCIES
   rspec (~> 3.8)
   rswag
   sqlite3 (~> 1.4)
+  store_model
 
 BUNDLED WITH
    2.2.2

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'store_model'
+
 module DXL
   module Schemas
     class SerializedBuilder
@@ -18,37 +20,23 @@ module DXL
       private
 
       def data_klass
-        @data_klass ||= Array(@klass).first.serialized_attributes[@method.to_sym]
+        @data_klass ||= Array(@klass).first.attribute_types[@method.to_s].instance_variable_get("@model_klass")
       end
 
       def properties
-        return properties_object unless data_klass < ::DXL::Structs::ApplicationStructArray
-
-        {
-          type: :array,
-          items: properties_object
-        }
-      end
-
-      def properties_object
-        data_klass.schema.keys.each_with_object({}).each do |key, hash|
-          hash[key.name] = {
-            type: type_mapper[key.type.name],
-            nullable: true
-          }.tap do |attr|
-            attr[:enum] = (key.mapping.keys << nil) if key.respond_to?(:mapping)
+        data_klass.attribute_types.each_with_object({}) do |(key, value), hash|
+          if value.type == :json
+            hash[key.to_sym] = ::DXL::Schemas::SerializedBuilder.new(data_klass, key).call
+          elsif value.type == :array
+            hash[key.to_sym] = {
+              type: :array,
+              items: ::DXL::Schemas::SerializedBuilder.new(data_klass, key).call
+            }
+          else
+            hash[key.to_sym] = { type: value.type, nullable: true }
+            hash
           end
-          hash
         end
-      end
-
-      def type_mapper
-        {
-          "String" => :string,
-          "NilClass | String" => :string,
-          "NilClass | Integer" => :integer,
-          "NilClass | TrueClass | FalseClass" => :boolean,
-        }
       end
     end
   end
