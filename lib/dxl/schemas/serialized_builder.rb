@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'store_model'
-
 module DXL
   module Schemas
     class SerializedBuilder
