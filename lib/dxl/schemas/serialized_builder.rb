@@ -11,6 +11,7 @@ module DXL
       def call
         {
           type: :object,
+          nullable: true,
           properties: properties
         }
       end
