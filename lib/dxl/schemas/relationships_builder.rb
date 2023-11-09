@@ -21,6 +21,7 @@ module DXL
           relationship_value = @serializer.relationships_to_serialize[key]
           hash[relationship_value.key] = {
             type: :object,
+            nullable: true,
             properties: {
               data: item_data(relationship_value)
             }

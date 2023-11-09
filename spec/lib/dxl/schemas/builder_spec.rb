@@ -113,6 +113,7 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
+                nullable: true,
                 properties: {
                   questions: {
                     type: :object,
@@ -160,6 +161,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
+                  nullable: true,
                   properties: {
                     questions: {
                       type: :object,
@@ -252,6 +254,7 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
+                nullable: true,
                 properties: {
                   question: {
                     type: :object,
@@ -299,6 +302,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
+                  nullable: true,
                   properties: {
                     question: {
                       type: :object,
@@ -391,6 +395,7 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
+                nullable: true,
                 properties: {
                   answers: {
                     type: :object,
@@ -438,6 +443,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
+                  nullable: true,
                   properties: {
                     answers: {
                       type: :object,
