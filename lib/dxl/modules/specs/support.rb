@@ -22,8 +22,8 @@ def lambda_request
   end
 end
 
-def schema_builder(serializer, klass, relationships: nil)
-  ::DXL::Schemas::Builder.new(serializer, klass, relationships: relationships).call
+def schema_builder(serializer, klass, included: nil)
+  ::DXL::Schemas::Builder.new(serializer, klass, included: included).call
 end
 
 def schema_form_builder(klass)
