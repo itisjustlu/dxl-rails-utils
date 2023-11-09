@@ -16,4 +16,9 @@ ActiveRecord::Schema.define do
     t.json :data
     t.timestamps
   end
+
+  create_table :comments, :force => true do |t|
+    t.string :title
+    t.integer :organization_id
+  end
 end

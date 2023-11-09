@@ -8,15 +8,11 @@ module DXL
       behave_as :interactor
       delegate_to_context :object_class, :opts, :key
 
-      def call
-        context.send("#{key}=", instance)
-      end
+      def call = context.send("#{key}=", instance)
 
       private
 
-      def instance
-        object_class.new(opts)
-      end
+      def instance = object_class.new(opts)
     end
   end
 end

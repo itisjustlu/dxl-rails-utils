@@ -21,9 +21,7 @@ module DXL
           )
         end
 
-        def finders
-          @finders || []
-        end
+        def finders = @finders || []
       end
 
       delegate_to_context :key, :object_class, :opts

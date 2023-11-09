@@ -3,10 +3,10 @@
 module DXL
   module Schemas
     class AttributesBuilder
-      def initialize(serializer, klass, relationships:)
+      def initialize(serializer, klass, phase)
         @serializer = serializer
         @klass = klass
-        @relationships = relationships
+        @phase = phase
       end
 
       def call
@@ -38,7 +38,7 @@ module DXL
             whitelist[:relationships] = {
               type: :object,
               properties: relationships
-            } if @relationships.present?
+            } if relationships.present? && @phase.zero?
           end
         }
       end
@@ -133,7 +133,7 @@ module DXL
       end
 
       def relationships
-        ::DXL::Schemas::RelationshipsBuilder.new(@serializer, relationships: @relationships).call
+        @relationships ||= ::DXL::Schemas::RelationshipsBuilder.new(@serializer).call
       end
     end
   end

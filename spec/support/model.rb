@@ -13,6 +13,30 @@ class OrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
   attribute :id, :data
 end
 
+class QuestionWithOrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id, :title, :data
+
+  belongs_to :organization, serializer: OrganizationSerializer
+end
+
+class OrganizationHasManySerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+
+  has_many :questions, serializer: QuestionWithOrganizationSerializer
+end
+
+class OrganizationHasOneSerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+
+  has_one :question, serializer: QuestionSerializer
+end
+
+class OrganizationHasManyDifferentKeySerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+
+  has_many :answers, serializer: QuestionSerializer
+end
+
 class OrganizationData
   include StoreModel::Model
 
@@ -37,6 +61,13 @@ end
 
 class Organization < ActiveRecord::Base
   has_many :questions
+  has_one :question
+
+  has_many :answers, class_name: 'Question', foreign_key: :organization_id
 
   attribute :data, OrganizationData.to_array_type
+end
+
+class Comment < ActiveRecord::Base
+  belongs_to :organization
 end

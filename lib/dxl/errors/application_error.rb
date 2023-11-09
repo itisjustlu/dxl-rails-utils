@@ -12,11 +12,9 @@ module DXL
         super(msg)
       end
 
-      def context
-        Struct
-          .new(:error, :status)
-          .new(message, status)
-      end
+      def context = Struct
+                      .new(:error, :status)
+                      .new(message, status)
     end
   end
 end

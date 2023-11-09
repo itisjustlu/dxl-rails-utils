@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  app:
+    image: platform_api
+    platform: linux/arm64/v8
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./lib:/app/lib
+      - ./spec:/app/spec

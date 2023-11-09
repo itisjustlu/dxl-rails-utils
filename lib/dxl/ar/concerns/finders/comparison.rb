@@ -41,29 +41,12 @@ module DXL
               @ilike = ilike.flatten
             end
 
-            def gte
-              @gte
-            end
-
-            def gt
-              @gt
-            end
-
-            def lte
-              @lte
-            end
-
-            def lt
-              @lt
-            end
-
-            def eq
-              @eq || []
-            end
-
-            def ilike
-              @ilike || []
-            end
+            def gte = @gte
+            def gt = @gt
+            def lte = @lte
+            def lt = @lt
+            def eq = @eq || []
+            def ilike = @ilike || []
           end
 
           module InstanceMethods

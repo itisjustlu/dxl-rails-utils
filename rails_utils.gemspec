@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '2.8.1'
+  s.version     = '2.9.0'
   s.summary     = 'Basic Rails Utils for Talenthack'
   s.description = 'Basic Rails Utils for Talenthack'
   s.author      = 'hello@thetalenthack.com'
@@ -11,9 +11,9 @@ Gem::Specification.new do |s|
   s.email       = 'hello@thetalenthack.com'
   s.license     = 'MIT'
 
-  s.add_dependency 'activerecord', '>= 6'
-  s.add_dependency 'activesupport', '>= 6'
-  s.add_dependency 'activemodel', '>= 6'
+  s.add_dependency 'activerecord', '>= 7'
+  s.add_dependency 'activesupport', '>= 7'
+  s.add_dependency 'activemodel', '>= 7'
   s.add_dependency 'store_model'
   s.add_dependency 'interactor', '~> 3.0'
   s.add_dependency 'faraday'

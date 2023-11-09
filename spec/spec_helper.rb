@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+ENV['RAILS_ENV'] ||= 'test'
+
 require 'bundler/setup'
 Bundler.setup
 
 require 'interactor'
 require 'database_cleaner'
-
-Dir['./lib/**/*.rb'].each { |f| require f }
+require 'dxl'
+require 'pry'
 
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
 

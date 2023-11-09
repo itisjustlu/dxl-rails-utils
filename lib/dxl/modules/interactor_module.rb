@@ -40,9 +40,7 @@ module DXL
 
         private
 
-        def _required_keys
-          @__required_keys ||= []
-        end
+        def _required_keys = @__required_keys ||= []
 
         def ensure_required(required)
           @_ensure_required ||= lambda do
@@ -79,9 +77,7 @@ module DXL
           context
         end
 
-        def strip_nils(hash)
-          hash.reject { |_k, v| v.nil? }
-        end
+        def strip_nils(hash) = hash.reject { |_k, v| v.nil? }
       end
     end
   end

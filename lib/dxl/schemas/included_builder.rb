@@ -3,9 +3,10 @@
 module DXL
   module Schemas
     class IncludedBuilder
-      def initialize(serializer, relationships)
+      def initialize(serializer, klass, included)
         @serializer = serializer
-        @relationships = relationships
+        @klass = klass
+        @included = included
       end
 
       def call
@@ -24,15 +25,18 @@ module DXL
       end
 
       def items
-        @relationships.map do |relationship|
+        @included.map do |relationship|
           relationship_value = @serializer.relationships_to_serialize[relationship]
           klass = fetch_klass(relationship_value)
-          ::DXL::Schemas::AttributesBuilder.new(relationship_value.serializer, klass.constantize, relationships: nil).call
+          ::DXL::Schemas::AttributesBuilder.new(relationship_value.serializer, klass.constantize, 1).call
         end
       end
 
       def fetch_klass(relationship_value)
-        relationship_value.serializer.to_s.gsub('Serializer', '')
+        @klass.
+          reflect_on_all_associations.
+          find { |association| association.name == relationship_value.object_method_name }.
+          class_name
       end
     end
   end

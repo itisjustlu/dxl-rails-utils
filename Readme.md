@@ -16,3 +16,9 @@ Run specs
 ```
 bundle exec rails g talent_hack:install
 ```
+
+### Local development
+```
+docker-compose build
+make rspec FILE_LIST=path/to/spec
+```

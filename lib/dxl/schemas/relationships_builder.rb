@@ -3,12 +3,14 @@
 module DXL
   module Schemas
     class RelationshipsBuilder
-      def initialize(serializer, relationships: )
+      def initialize(serializer)
         @serializer = serializer
-        @relationships = relationships
+        @relationships = serializer.relationships_to_serialize&.map { |k, _| k }
       end
 
       def call
+        return nil unless @relationships.present?
+
         data
       end
 
@@ -29,7 +31,6 @@ module DXL
       def item_data(relationship_value)
         return single_item_data(relationship_value) if relationship_value.relationship_type == :belongs_to
         array_item_data(relationship_value)
-
       end
 
       def single_item_data(relationship_value)

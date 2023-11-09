@@ -10,13 +10,9 @@ module DXL
             direction: :desc,
           }.freeze
 
-          def order
-            context.opts[:order] || DEFAULT[:order]
-          end
+          def order = context.opts[:order] || DEFAULT[:order]
 
-          def direction
-            context.opts[:direction] || DEFAULT[:direction]
-          end
+          def direction = context.opts[:direction] || DEFAULT[:direction]
 
           def apply_order
             context.relation = context.relation.order(order => direction)

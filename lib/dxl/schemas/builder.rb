@@ -3,10 +3,11 @@
 module DXL
   module Schemas
     class Builder
-      def initialize(serializer, klass, relationships: nil)
+      def initialize(serializer, klass, included: nil)
         @serializer = serializer
         @klass = klass
-        @relationships = relationships || @serializer.relationships_to_serialize&.map { |k, _| k } || []
+        @included = included
+        @phase = 0
       end
 
       def call
@@ -15,7 +16,7 @@ module DXL
           properties: {
             data: data
           }.tap do |whitelist|
-            whitelist[:included] = included if @relationships.present?
+            whitelist[:included] = included if @included.present?
           end
         }
       end
@@ -23,11 +24,11 @@ module DXL
       private
 
       def data
-        ::DXL::Schemas::AttributesBuilder.new(@serializer, @klass, relationships: @relationships).call
+        ::DXL::Schemas::AttributesBuilder.new(@serializer, @klass, @phase).call
       end
 
       def included
-        ::DXL::Schemas::IncludedBuilder.new(@serializer, @relationships).call
+        ::DXL::Schemas::IncludedBuilder.new(@serializer, @klass, @included).call
       end
     end
   end

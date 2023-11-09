@@ -29,21 +29,10 @@ module DXL
               @left_join = join
             end
 
-            def associated
-              @associated || []
-            end
-
-            def includes
-              @includes || []
-            end
-
-            def join
-              @join
-            end
-
-            def left_join
-              @left_join
-            end
+            def associated = @associated || []
+            def includes = @includes || []
+            def join = @join
+            def left_join = @left_join
           end
 
           module InstanceMethods
