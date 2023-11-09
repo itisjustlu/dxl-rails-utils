@@ -48,6 +48,7 @@ module DXL
       def array_item_data(relationship_value)
         {
           type: :array,
+          nullable: true,
           items: single_item_data(relationship_value)
         }
       end

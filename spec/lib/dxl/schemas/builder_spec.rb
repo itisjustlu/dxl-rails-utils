@@ -120,6 +120,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                     properties: {
                       data: {
                         type: :array,
+                        nullable: true,
                         items: {
                           nullable: true,
                           type: :object,
@@ -168,6 +169,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                       properties: {
                         data: {
                           type: :array,
+                          nullable: true,
                           items: {
                             nullable: true,
                             type: :object,
@@ -260,6 +262,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                     nullable: true,
                     properties: {
                       data: {
+                        nullable: true,
                         type: :array,
                         items: {
                           nullable: true,
@@ -308,6 +311,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                       type: :object,
                       properties: {
                         data: {
+                          nullable: true,
                           type: :array,
                           items: {
                             nullable: true,
@@ -402,6 +406,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                     properties: {
                       data: {
                         type: :array,
+                        nullable: true,
                         items: {
                           nullable: true,
                           type: :object,
@@ -450,6 +455,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                       properties: {
                         data: {
                           type: :array,
+                          nullable: true,
                           items: {
                             nullable: true,
                             type: :object,
