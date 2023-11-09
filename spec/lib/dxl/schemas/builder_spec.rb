@@ -113,9 +113,9 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
-                nullable: true,
                 properties: {
                   questions: {
+                    nullable: true,
                     type: :object,
                     properties: {
                       data: {
@@ -161,9 +161,9 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
-                  nullable: true,
                   properties: {
                     questions: {
+                      nullable: true,
                       type: :object,
                       properties: {
                         data: {
@@ -254,10 +254,10 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
-                nullable: true,
                 properties: {
                   question: {
                     type: :object,
+                    nullable: true,
                     properties: {
                       data: {
                         type: :array,
@@ -302,9 +302,9 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
-                  nullable: true,
                   properties: {
                     question: {
+                      nullable: true,
                       type: :object,
                       properties: {
                         data: {
@@ -395,10 +395,10 @@ RSpec.describe ::DXL::Schemas::Builder do
               },
               relationships: {
                 type: :object,
-                nullable: true,
                 properties: {
                   answers: {
                     type: :object,
+                    nullable: true,
                     properties: {
                       data: {
                         type: :array,
@@ -443,9 +443,9 @@ RSpec.describe ::DXL::Schemas::Builder do
                 },
                 relationships: {
                   type: :object,
-                  nullable: true,
                   properties: {
                     answers: {
+                      nullable: true,
                       type: :object,
                       properties: {
                         data: {
