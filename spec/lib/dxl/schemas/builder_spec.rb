@@ -263,15 +263,11 @@ RSpec.describe ::DXL::Schemas::Builder do
                     properties: {
                       data: {
                         nullable: true,
-                        type: :array,
-                        items: {
-                          nullable: true,
-                          type: :object,
-                          properties: {
-                            id: { type: :string, default: '0' },
-                            type: { type: :string, default: :question },
-                          },
-                        }
+                        type: :object,
+                        properties: {
+                          id: { type: :string, default: '0' },
+                          type: { type: :string, default: :question },
+                        },
                       }
                     },
                   }
@@ -312,15 +308,11 @@ RSpec.describe ::DXL::Schemas::Builder do
                       properties: {
                         data: {
                           nullable: true,
-                          type: :array,
-                          items: {
-                            nullable: true,
-                            type: :object,
-                            properties: {
-                              id: { type: :string, default: '0' },
-                              type: { type: :string, default: :question },
-                            },
-                          }
+                          type: :object,
+                          properties: {
+                            id: { type: :string, default: '0' },
+                            type: { type: :string, default: :question },
+                          },
                         }
                       },
                     }

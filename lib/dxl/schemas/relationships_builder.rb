@@ -30,7 +30,7 @@ module DXL
       end
 
       def item_data(relationship_value)
-        return single_item_data(relationship_value) if relationship_value.relationship_type == :belongs_to
+        return single_item_data(relationship_value) unless relationship_value.relationship_type == :has_many
         array_item_data(relationship_value)
       end
 
