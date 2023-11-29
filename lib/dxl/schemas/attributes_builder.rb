@@ -112,6 +112,7 @@ module DXL
           float: :number,
           decimal: :number,
           jsonb: :number,
+          uuid: :string,
         }[column_types[method]] || column_types[method]
       end
 
