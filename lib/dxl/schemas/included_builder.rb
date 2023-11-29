@@ -33,7 +33,8 @@ module DXL
       end
 
       def fetch_klass(relationship_value)
-        @klass.
+        Array(@klass).
+          first.
           reflect_on_all_associations.
           find { |association| association.name == relationship_value.object_method_name }.
           class_name
