@@ -111,7 +111,7 @@ module DXL
           datetime: :string,
           float: :number,
           decimal: :number,
-          jsonb: :number,
+          jsonb: :object,
           uuid: :string,
         }[column_types[method]] || column_types[method]
       end
