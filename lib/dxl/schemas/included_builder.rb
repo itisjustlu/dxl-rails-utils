@@ -26,14 +26,33 @@ module DXL
 
       def items
         @included.map do |relationship|
-          relationship_value = @serializer.relationships_to_serialize[relationship]
-          klass = fetch_klass(relationship_value)
+          items = relationship.to_s.split('.')
+          last_relationship = items.last.to_sym
+
+          new_serializer = @serializer
+          new_klass = Array(@klass).first
+
+          if items.size > 1
+            items.pop
+            items.each do |item|
+              new_serializer = new_serializer.relationships_to_serialize[item.to_sym].serializer
+              new_klass = new_klass.
+                reflect_on_all_associations.
+                find { |association| association.name == item.to_sym }.
+                class_name.
+                constantize
+            end
+          end
+
+
+          relationship_value = new_serializer.relationships_to_serialize[last_relationship]
+          klass = fetch_klass(new_klass, relationship_value)
           ::DXL::Schemas::AttributesBuilder.new(relationship_value.serializer, klass.constantize, 1).call
         end
       end
 
-      def fetch_klass(relationship_value)
-        Array(@klass).
+      def fetch_klass(new_klass, relationship_value)
+        Array(new_klass).
           first.
           reflect_on_all_associations.
           find { |association| association.name == relationship_value.object_method_name }.

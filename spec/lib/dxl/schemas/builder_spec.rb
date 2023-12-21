@@ -534,4 +534,101 @@ RSpec.describe ::DXL::Schemas::Builder do
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  describe '.test6' do
+    subject { described_class.new(serializer, klass).call }
+
+    let(:serializer) { OrganizationHasOneQuestionQuestionBelongsToOrganization }
+    let(:klass) { Organization }
+
+    context 'when included' do
+      subject { described_class.new(serializer, klass, included: [:question, :'question.organization']).call }
+
+      it 'returns the expected schema' do
+        hash = {
+          type: :object,
+          properties: {
+            data: {
+              type: :object,
+              properties: {
+                id: { type: :string, default: '0' },
+                type: { type: :string, default: 'organization' },
+                attributes: {
+                  type: :object,
+                  properties: {
+                    id: { type: :integer, nullable: true },
+                  }
+                },
+                relationships: {
+                  type: :object,
+                  properties: {
+                    question: {
+                      nullable: true,
+                      type: :object,
+                      properties: {
+                        data: {
+                          nullable: true,
+                          type: :object,
+                          properties: {
+                            id: { type: :string, default: '0' },
+                            type: { type: :string, default: :question },
+                          },
+                        }
+                      },
+                    },
+                  }
+                }
+              }
+            },
+            included: {
+              type: :array,
+              items: {
+                anyOf: [
+                  {
+                    type: :object,
+                    properties: {
+                      id: { type: :string, default: '0' },
+                      type: { type: :string, default: 'question' },
+                      attributes: {
+                        type: :object,
+                        properties: {
+                          id: { type: :integer, nullable: true },
+                        }
+                      }
+                    }
+                  },
+                  {
+                    type: :object,
+                    properties: {
+                      id: { type: :string, default: '0' },
+                      type: { type: :string, default: 'organization' },
+                      attributes: {
+                        type: :object,
+                        properties: {
+                          id: { type: :integer, nullable: true },
+                        }
+                      },
+                    },
+                  }
+                ]
+              }
+            }
+          }
+        }
+
+        expect(subject).to eq(hash)
+      end
+    end
+  end
 end

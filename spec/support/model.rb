@@ -37,6 +37,22 @@ class OrganizationHasManyDifferentKeySerializer < ::DXL::Serializers::Applicatio
   has_many :answers, serializer: QuestionSerializer
 end
 
+class OrganizationEmptySerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+end
+
+class QuestionBelongsToOrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+
+  belongs_to :organization, serializer: OrganizationEmptySerializer
+end
+
+class OrganizationHasOneQuestionQuestionBelongsToOrganization < ::DXL::Serializers::ApplicationSerializer
+  attribute :id
+
+  has_one :question, serializer: QuestionBelongsToOrganizationSerializer
+end
+
 class OrganizationData
   include StoreModel::Model
 
