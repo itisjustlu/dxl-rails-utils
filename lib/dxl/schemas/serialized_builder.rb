@@ -32,7 +32,20 @@ module DXL
               items: ::DXL::Schemas::SerializedBuilder.new(data_klass, key).call
             }
           else
-            hash[key.to_sym] = { type: value.type, nullable: true }
+            hash[key.to_sym] = if value.type.nil?
+                                 {
+                                   anyOf: [
+                                     { type: :string, nullable: true },
+                                     { type: :integer, nullable: true },
+                                     { type: :boolean, nullable: true },
+                                     { type: :array, nullable: true },
+                                     { type: :number, nullable: true },
+                                     { type: :object, nullable: true },
+                                   ]
+                                 }
+                               else
+                                 { type: value.type, nullable: true }
+                               end
             hash
           end
         end

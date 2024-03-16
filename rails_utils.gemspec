@@ -2,13 +2,13 @@
 
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '2.9.8'
-  s.summary     = 'Basic Rails Utils for Talenthack'
-  s.description = 'Basic Rails Utils for Talenthack'
-  s.author      = 'hello@thetalenthack.com'
+  s.version     = '3.1.0'
+  s.summary     = 'Basic Rails Utils'
+  s.description = 'Basic Rails Utils'
+  s.author      = 'Lu Juarez'
   s.files       = `git ls-files -- {lib,spec}/*`.split("\n")
   s.homepage    = 'https://github.com/itslujuarez/dxl-rails-utils'
-  s.email       = 'hello@thetalenthack.com'
+  s.email       = 'itisjustlu2@gmail.com'
   s.license     = 'MIT'
 
   s.add_dependency 'activerecord', '>= 7'
