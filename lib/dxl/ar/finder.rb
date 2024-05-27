@@ -31,6 +31,7 @@ module DXL
         apply_concerns
         apply_finders
         assign_key
+        distinct! if !!context.distinct
         count! if !!context.count
       end
 
@@ -57,6 +58,10 @@ module DXL
       def assign_key
         context.send("#{key}=", context.relation)
         context.relation = nil
+      end
+
+      def distinct!
+        context.send("#{key}=", context.send(key).distinct)
       end
 
       def count!
