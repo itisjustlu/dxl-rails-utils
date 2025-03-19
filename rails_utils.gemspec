@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '3.2.0'
+  s.version     = '3.3.0'
   s.summary     = 'Basic Rails Utils'
   s.description = 'Basic Rails Utils'
   s.author      = 'Lu Juarez'

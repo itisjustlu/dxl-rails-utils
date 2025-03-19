@@ -37,6 +37,10 @@ module DXL
               @eq ||= eq.flatten
             end
 
+            def find_not_eq(*not_eq)
+              @not_eq ||= not_eq.flatten
+            end
+
             def find_ilike(*ilike)
               @ilike = ilike.flatten
             end
@@ -46,12 +50,14 @@ module DXL
             def lte = @lte
             def lt = @lt
             def eq = @eq || []
+            def not_eq = @not_eq || []
             def ilike = @ilike || []
           end
 
           module InstanceMethods
             def apply_comparison
               apply_eq
+              apply_not_eq
               apply_ilike
               apply_gte
               apply_gt
@@ -65,6 +71,14 @@ module DXL
               self.class.eq.each do |eq|
                 if context.opts["#{eq}_eq".to_sym].present?
                   context.relation = context.relation.where(eq => context.opts["#{eq}_eq".to_sym])
+                end
+              end
+            end
+
+            def apply_not_eq
+              self.class.not_eq.each do |not_eq|
+                if context.opts["#{not_eq}_not_eq".to_sym].present?
+                  context.relation = context.relation.where.not(not_eq => context.opts["#{not_eq}_not_eq".to_sym])
                 end
               end
             end
