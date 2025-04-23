@@ -66,6 +66,7 @@ module DXL
 
       def count!
         results = context.send(key).except(:offset, :limit, :order).count
+        context.total_items = results
         context.total_pages = (results.to_f / context.per_page.to_f).ceil
       end
     end
