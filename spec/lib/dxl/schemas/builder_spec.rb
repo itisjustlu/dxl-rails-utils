@@ -24,22 +24,8 @@ RSpec.describe ::DXL::Schemas::Builder do
                   id: { type: :integer, nullable: true },
                   title: { type: :string, nullable: true },
                   data: {
-                    type: :object,
                     nullable: true,
-                    properties: {
-                      channel_id: { type: :string, nullable: true },
-                      channel_name: { type: :string, nullable: true },
-                      organization_data: {
-                        type: :array,
-                        items: {
-                          type: :object,
-                          nullable: true,
-                          properties: {
-                            report_id: { type: :string, nullable: true },
-                          }
-                        }
-                      }
-                    }
+                    type: :json
                   }
                 }
               }
@@ -72,14 +58,8 @@ RSpec.describe ::DXL::Schemas::Builder do
                                       properties: {
                                         id: { type: :integer, nullable: true },
                                         data: {
-                                          type: :array,
-                                          items: {
-                                            type: :object,
-                                            nullable: true,
-                                            properties: {
-                                              report_id: { type: :string, nullable: true },
-                                            }
-                                          }
+                                          nullable: true,
+                                          type: :json,
                                         }
                                       }
                                     }
@@ -200,22 +180,8 @@ RSpec.describe ::DXL::Schemas::Builder do
                           id: { type: :integer, nullable: true },
                           title: { type: :string, nullable: true },
                           data: {
-                            type: :object,
+                            type: :json,
                             nullable: true,
-                            properties: {
-                              channel_id: { type: :string, nullable: true },
-                              channel_name: { type: :string, nullable: true },
-                              organization_data: {
-                                type: :array,
-                                items: {
-                                  type: :object,
-                                  nullable: true,
-                                  properties: {
-                                    report_id: { type: :string, nullable: true },
-                                  }
-                                }
-                              }
-                            }
                           }
                         }
                       }
@@ -335,22 +301,8 @@ RSpec.describe ::DXL::Schemas::Builder do
                           id: { type: :integer, nullable: true },
                           title: { type: :string, nullable: true },
                           data: {
-                            type: :object,
+                            type: :json,
                             nullable: true,
-                            properties: {
-                              channel_id: { type: :string, nullable: true },
-                              channel_name: { type: :string, nullable: true },
-                              organization_data: {
-                                type: :array,
-                                items: {
-                                  type: :object,
-                                  nullable: true,
-                                  properties: {
-                                    report_id: { type: :string, nullable: true },
-                                  }
-                                }
-                              }
-                            }
                           }
                         }
                       }
@@ -478,22 +430,8 @@ RSpec.describe ::DXL::Schemas::Builder do
                           id: { type: :integer, nullable: true },
                           title: { type: :string, nullable: true },
                           data: {
-                            type: :object,
+                            type: :json,
                             nullable: true,
-                            properties: {
-                              channel_id: { type: :string, nullable: true },
-                              channel_name: { type: :string, nullable: true },
-                              organization_data: {
-                                type: :array,
-                                items: {
-                                  type: :object,
-                                  nullable: true,
-                                  properties: {
-                                    report_id: { type: :string, nullable: true },
-                                  }
-                                }
-                              }
-                            }
                           }
                         }
                       }

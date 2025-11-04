@@ -1,4 +1,3 @@
-require 'dxl/schemas/forms/builder'
 require 'dxl/schemas/attributes_builder'
 require 'dxl/schemas/builder'
 require 'dxl/schemas/included_builder'

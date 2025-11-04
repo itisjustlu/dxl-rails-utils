@@ -1,76 +1,87 @@
 # frozen_string_literal: true
 
 require 'active_record'
-require 'store_model'
+require 'jsonapi/serializer'
 
 load File.dirname(__FILE__) + '/schema.rb'
 
-class QuestionSerializer < ::DXL::Serializers::ApplicationSerializer
+class QuestionSerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id, :title, :data
 end
 
-class OrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
+class OrganizationSerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id, :data
 end
 
-class QuestionWithOrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
+class QuestionWithOrganizationSerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id, :title, :data
 
   belongs_to :organization, serializer: OrganizationSerializer
 end
 
-class OrganizationHasManySerializer < ::DXL::Serializers::ApplicationSerializer
+class OrganizationHasManySerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 
   has_many :questions, serializer: QuestionWithOrganizationSerializer
 end
 
-class OrganizationHasOneSerializer < ::DXL::Serializers::ApplicationSerializer
+class OrganizationHasOneSerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 
   has_one :question, serializer: QuestionSerializer
 end
 
-class OrganizationHasManyDifferentKeySerializer < ::DXL::Serializers::ApplicationSerializer
+class OrganizationHasManyDifferentKeySerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 
   has_many :answers, serializer: QuestionSerializer
 end
 
-class OrganizationEmptySerializer < ::DXL::Serializers::ApplicationSerializer
+class OrganizationEmptySerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 end
 
-class QuestionBelongsToOrganizationSerializer < ::DXL::Serializers::ApplicationSerializer
+class QuestionBelongsToOrganizationSerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 
   belongs_to :organization, serializer: OrganizationEmptySerializer
 end
 
-class OrganizationHasOneQuestionQuestionBelongsToOrganization < ::DXL::Serializers::ApplicationSerializer
+class OrganizationHasOneQuestionQuestionBelongsToOrganization
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
+
   attribute :id
 
   has_one :question, serializer: QuestionBelongsToOrganizationSerializer
 end
 
-class OrganizationData
-  include StoreModel::Model
-
-  attribute :report_id, :string
-end
-
-class QuestionData
-  include StoreModel::Model
-
-  attribute :channel_id, :string
-  attribute :channel_name, :string
-  attribute :organization_data, OrganizationData.to_array_type
-end
-
 class Question < ActiveRecord::Base
   validates :title, presence: true
-
-  attribute :data, QuestionData.to_type
 
   belongs_to :organization
 end
@@ -80,8 +91,6 @@ class Organization < ActiveRecord::Base
   has_one :question
 
   has_many :answers, class_name: 'Question', foreign_key: :organization_id
-
-  attribute :data, OrganizationData.to_array_type
 end
 
 class Comment < ActiveRecord::Base

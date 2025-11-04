@@ -2,11 +2,15 @@ version: "3.9"
 
 services:
   app:
-    image: platform_api
-    platform: linux/arm64/v8
+    image: dxl-rails-utils
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ./lib:/app/lib
       - ./spec:/app/spec
+      - gems_volume:/gems:cached
+    environment:
+      BUNDLE_PATH: /gems
+volumes:
+    gems_volume:
