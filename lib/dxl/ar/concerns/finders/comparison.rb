@@ -69,7 +69,7 @@ module DXL
 
             def apply_eq
               self.class.eq.each do |eq|
-                if context.opts["#{eq}_eq".to_sym].present?
+                unless context.opts["#{eq}_eq".to_sym].nil?
                   context.relation = context.relation.where(eq => context.opts["#{eq}_eq".to_sym])
                 end
               end
@@ -77,7 +77,7 @@ module DXL
 
             def apply_not_eq
               self.class.not_eq.each do |not_eq|
-                if context.opts["#{not_eq}_not_eq".to_sym].present?
+                unless context.opts["#{not_eq}_not_eq".to_sym].nil?
                   context.relation = context.relation.where.not(not_eq => context.opts["#{not_eq}_not_eq".to_sym])
                 end
               end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'jwt'
-
 def json_fixture(path)
   JSON.parse(file_fixture("#{path}.json").read).deep_symbolize_keys
 end

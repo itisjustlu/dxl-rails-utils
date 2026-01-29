@@ -9,8 +9,6 @@ gem 'activerecord', '>= 8'
 gem 'activesupport', '>= 8'
 gem 'faraday', '~> 2.14.0'
 gem 'jsonapi-serializer', '~> 2.2.0'
-gem 'jwt', '~> 3.1.2'
-gem 'rswag'
 
 group :test do
   gem 'sqlite3', '~> 2.7.3'
