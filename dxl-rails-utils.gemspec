@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '4.0.1'
+  s.version     = '4.0.2'
   s.summary     = 'Basic Rails Utils'
   s.description = 'Basic Rails Utils'
   s.author      = 'Lu Juarez'
