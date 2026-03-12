@@ -89,7 +89,8 @@ module DXL
 
               return if ransack_params.empty?
 
-              defined_enums = context.object_class.defined_enums
+              model_class = context.object_class || context.relation.klass
+              defined_enums = model_class.defined_enums
               enum_params, standard_params = ransack_params.partition do |key, _|
                 key_s = key.to_s
                 (key_s.end_with?('_eq') && defined_enums.key?(key_s.delete_suffix('_eq'))) ||
