@@ -100,8 +100,11 @@ class Organization < ActiveRecord::Base
 
   has_many :answers, class_name: 'Question'
 
+  enum :status, pending: 0, active: 1, archived: 2
+  enum :kind, regular: 'regular', premium: 'premium'
+
   def self.ransackable_attributes(_auth_object = nil)
-    %w(id title created_at updated_at)
+    %w(id title status kind created_at updated_at)
   end
 
   def self.ransackable_associations(_auth_object = nil)

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'dxl'
-  s.version     = '5.0.0'
+  s.version     = '5.0.1'
   s.summary     = 'Basic Rails Utils'
   s.description = 'Basic Rails Utils'
   s.author      = 'Lu Juarez'

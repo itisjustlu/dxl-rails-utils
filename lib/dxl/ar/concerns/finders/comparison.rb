@@ -89,7 +89,23 @@ module DXL
 
               return if ransack_params.empty?
 
-              context.relation = context.relation.ransack(ransack_params).result
+              defined_enums = context.object_class.defined_enums
+              enum_params, standard_params = ransack_params.partition do |key, _|
+                key_s = key.to_s
+                (key_s.end_with?('_eq') && defined_enums.key?(key_s.delete_suffix('_eq'))) ||
+                  (key_s.end_with?('_not_eq') && defined_enums.key?(key_s.delete_suffix('_not_eq')))
+              end
+
+              enum_params.each do |key, value|
+                key_s = key.to_s
+                if key_s.end_with?('_not_eq')
+                  context.relation = context.relation.where.not(key_s.delete_suffix('_not_eq') => value)
+                else
+                  context.relation = context.relation.where(key_s.delete_suffix('_eq') => value)
+                end
+              end
+
+              context.relation = context.relation.ransack(standard_params.to_h).result if standard_params.any?
             end
           end
         end

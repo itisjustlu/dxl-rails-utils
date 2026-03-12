@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 class OrganizationFinder < ::DXL::AR::Finder
-  find_eq :title
-  find_not_eq :title
+  find_eq :title, :status, :kind
+  find_not_eq :title, :status
   find_ilike :title
   find_ilike :questions_title
   find_gte :created_at
@@ -178,6 +178,49 @@ RSpec.describe ::DXL::AR::Finder do
 
       it 'ignores undeclared ransack keys' do
         expect(organizations.size).to eq(3)
+      end
+    end
+  end
+
+  describe 'enum comparison' do
+    subject { OrganizationFinder.call(key: :organizations, object_class: Organization, opts: opts) }
+
+    let!(:org_pending)  { Organization.create(title: 'Pending Org',  status: :pending,  kind: :regular) }
+    let!(:org_active)   { Organization.create(title: 'Active Org',   status: :active,   kind: :premium) }
+    let!(:org_archived) { Organization.create(title: 'Archived Org', status: :archived, kind: :regular) }
+
+    context 'integer-backed enum with string value (find_eq :status)' do
+      let(:opts) { { status_eq: 'active' } }
+
+      it 'filters correctly' do
+        expect(organizations.size).to eq(1)
+        expect(organizations.first.title).to eq('Active Org')
+      end
+    end
+
+    context 'integer-backed enum with symbol value (find_eq :status)' do
+      let(:opts) { { status_eq: :active } }
+
+      it 'filters correctly' do
+        expect(organizations.size).to eq(1)
+        expect(organizations.first.title).to eq('Active Org')
+      end
+    end
+
+    context 'string-backed enum with string value (find_eq :kind)' do
+      let(:opts) { { kind_eq: 'premium' } }
+
+      it 'filters correctly' do
+        expect(organizations.size).to eq(1)
+        expect(organizations.first.title).to eq('Active Org')
+      end
+    end
+
+    context 'integer-backed enum exclusion (find_not_eq :status)' do
+      let(:opts) { { status_not_eq: 'archived' } }
+
+      it 'excludes matching enum value' do
+        expect(organizations.map(&:title)).to contain_exactly('Pending Org', 'Active Org')
       end
     end
   end

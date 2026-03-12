@@ -14,6 +14,8 @@ ActiveRecord::Schema.define do
   create_table :organizations, :force => true do |t|
     t.string :title
     t.json :data
+    t.integer :status, default: 0
+    t.string :kind, default: 'regular'
     t.timestamps
   end
 
