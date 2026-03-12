@@ -12,7 +12,7 @@ module DXL
         {
           type: :object,
           nullable: true,
-          properties: properties
+          properties: properties,
         }
       end
 
@@ -29,7 +29,7 @@ module DXL
           elsif value.type == :array
             hash[key.to_sym] = {
               type: :array,
-              items: ::DXL::Schemas::SerializedBuilder.new(data_klass, key).call
+              items: ::DXL::Schemas::SerializedBuilder.new(data_klass, key).call,
             }
           else
             hash[key.to_sym] = if value.type.nil?
@@ -41,7 +41,7 @@ module DXL
                                      { type: :array, nullable: true },
                                      { type: :number, nullable: true },
                                      { type: :object, nullable: true },
-                                   ]
+                                   ],
                                  }
                                else
                                  { type: value.type, nullable: true }

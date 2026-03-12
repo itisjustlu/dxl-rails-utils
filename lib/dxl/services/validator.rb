@@ -11,7 +11,7 @@ module DXL
       end
 
       def call
-        raise @error_class.new(@validator.errors.full_messages) unless @validator.valid?
+        raise @error_class, @validator.errors.full_messages unless @validator.valid?
       end
 
       private

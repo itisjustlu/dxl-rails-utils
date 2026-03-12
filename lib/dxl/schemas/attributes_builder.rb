@@ -32,21 +32,23 @@ module DXL
             type: { type: :string, default: Array(@klass).first.name.demodulize.camelize(:lower) },
             attributes: {
               type: :object,
-              properties: properties
-            }
+              properties: properties,
+            },
           }.tap do |whitelist|
-            whitelist[:relationships] = {
-              type: :object,
-              properties: relationships
-            } if relationships.present? && @phase.zero?
-          end
+            if relationships.present? && @phase.zero?
+              whitelist[:relationships] = {
+                type: :object,
+                properties: relationships,
+              }
+            end
+          end,
         }
       end
 
       def array_data
         {
           type: :array,
-          items: single_data
+          items: single_data,
         }
       end
 
@@ -70,7 +72,7 @@ module DXL
         if column_types[method] == :array && attribute_types[method.to_s].instance_variable_get("@model_klass")
           return {
             type: :array,
-            items: ::DXL::Schemas::SerializedBuilder.new(@klass, method).call
+            items: ::DXL::Schemas::SerializedBuilder.new(@klass, method).call,
           }
         end
 
@@ -91,7 +93,7 @@ module DXL
             { type: :array, nullable: true },
             { type: :number, nullable: true },
             { type: :object, nullable: true },
-          ]
+          ],
         }
       end
 

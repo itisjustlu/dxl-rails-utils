@@ -25,13 +25,13 @@ RSpec.describe ::DXL::Schemas::Builder do
                   title: { type: :string, nullable: true },
                   data: {
                     nullable: true,
-                    type: :json
-                  }
-                }
-              }
-            }
-          }
-        }
+                    type: :json,
+                  },
+                },
+              },
+            },
+          },
+        },
       }
 
       expect(subject).to eq(hash)
@@ -46,27 +46,27 @@ RSpec.describe ::DXL::Schemas::Builder do
 
     it 'returns the expected schema' do
       expect(subject).to eq({
-                              type: :object,
-                              properties: {
-                                data: {
-                                  type: :object,
-                                  properties: {
-                                    id: { type: :string, default: '0' },
-                                    type: { type: :string, default: 'organization' },
-                                    attributes: {
-                                      type: :object,
-                                      properties: {
-                                        id: { type: :integer, nullable: true },
-                                        data: {
-                                          nullable: true,
-                                          type: :json,
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            })
+        type: :object,
+        properties: {
+          data: {
+            type: :object,
+            properties: {
+              id: { type: :string, default: '0' },
+              type: { type: :string, default: 'organization' },
+              attributes: {
+                type: :object,
+                properties: {
+                  id: { type: :integer, nullable: true },
+                  data: {
+                    nullable: true,
+                    type: :json,
+                  },
+                },
+              },
+            },
+          },
+        },
+      })
     end
   end
 
@@ -89,7 +89,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 type: :object,
                 properties: {
                   id: { type: :integer, nullable: true },
-                }
+                },
               },
               relationships: {
                 type: :object,
@@ -108,15 +108,15 @@ RSpec.describe ::DXL::Schemas::Builder do
                             id: { type: :string, default: '0' },
                             type: { type: :string, default: :questions },
                           },
-                        }
-                      }
+                        },
+                      },
                     },
-                  }
-                }
-              }
-            }
+                  },
+                },
+              },
+            },
           },
-        }
+        },
       }
 
       expect(subject).to eq(hash)
@@ -138,7 +138,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                   type: :object,
                   properties: {
                     id: { type: :integer, nullable: true },
-                  }
+                  },
                 },
                 relationships: {
                   type: :object,
@@ -157,13 +157,13 @@ RSpec.describe ::DXL::Schemas::Builder do
                               id: { type: :string, default: '0' },
                               type: { type: :string, default: :questions },
                             },
-                          }
-                        }
+                          },
+                        },
                       },
-                    }
-                  }
-                }
-              }
+                    },
+                  },
+                },
+              },
             },
             included: {
               type: :array,
@@ -182,15 +182,15 @@ RSpec.describe ::DXL::Schemas::Builder do
                           data: {
                             type: :json,
                             nullable: true,
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
         }
 
         expect(subject).to eq(hash)
@@ -203,7 +203,6 @@ RSpec.describe ::DXL::Schemas::Builder do
 
     let(:serializer) { OrganizationHasOneSerializer }
     let(:klass) { Organization }
-
 
     it 'returns the expected schema' do
       hash = {
@@ -218,7 +217,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 type: :object,
                 properties: {
                   id: { type: :integer, nullable: true },
-                }
+                },
               },
               relationships: {
                 type: :object,
@@ -234,14 +233,14 @@ RSpec.describe ::DXL::Schemas::Builder do
                           id: { type: :string, default: '0' },
                           type: { type: :string, default: :question },
                         },
-                      }
+                      },
                     },
-                  }
-                }
-              }
-            }
+                  },
+                },
+              },
+            },
           },
-        }
+        },
       }
 
       expect(subject).to eq(hash)
@@ -263,7 +262,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                   type: :object,
                   properties: {
                     id: { type: :integer, nullable: true },
-                  }
+                  },
                 },
                 relationships: {
                   type: :object,
@@ -279,12 +278,12 @@ RSpec.describe ::DXL::Schemas::Builder do
                             id: { type: :string, default: '0' },
                             type: { type: :string, default: :question },
                           },
-                        }
+                        },
                       },
-                    }
-                  }
-                }
-              }
+                    },
+                  },
+                },
+              },
             },
             included: {
               type: :array,
@@ -303,15 +302,15 @@ RSpec.describe ::DXL::Schemas::Builder do
                           data: {
                             type: :json,
                             nullable: true,
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
         }
 
         expect(subject).to eq(hash)
@@ -324,7 +323,6 @@ RSpec.describe ::DXL::Schemas::Builder do
 
     let(:serializer) { OrganizationHasManyDifferentKeySerializer }
     let(:klass) { Organization }
-
 
     it 'returns the expected schema' do
       hash = {
@@ -339,7 +337,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                 type: :object,
                 properties: {
                   id: { type: :integer, nullable: true },
-                }
+                },
               },
               relationships: {
                 type: :object,
@@ -358,15 +356,15 @@ RSpec.describe ::DXL::Schemas::Builder do
                             id: { type: :string, default: '0' },
                             type: { type: :string, default: :answers },
                           },
-                        }
-                      }
+                        },
+                      },
                     },
-                  }
-                }
-              }
-            }
+                  },
+                },
+              },
+            },
           },
-        }
+        },
       }
 
       expect(subject).to eq(hash)
@@ -388,7 +386,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                   type: :object,
                   properties: {
                     id: { type: :integer, nullable: true },
-                  }
+                  },
                 },
                 relationships: {
                   type: :object,
@@ -407,13 +405,13 @@ RSpec.describe ::DXL::Schemas::Builder do
                               id: { type: :string, default: '0' },
                               type: { type: :string, default: :answers },
                             },
-                          }
-                        }
+                          },
+                        },
                       },
-                    }
-                  }
-                }
-              }
+                    },
+                  },
+                },
+              },
             },
             included: {
               type: :array,
@@ -432,57 +430,21 @@ RSpec.describe ::DXL::Schemas::Builder do
                           data: {
                             type: :json,
                             nullable: true,
-                          }
-                        }
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
         }
 
         expect(subject).to eq(hash)
       end
     end
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   describe '.test6' do
     subject { described_class.new(serializer, klass).call }
@@ -506,7 +468,7 @@ RSpec.describe ::DXL::Schemas::Builder do
                   type: :object,
                   properties: {
                     id: { type: :integer, nullable: true },
-                  }
+                  },
                 },
                 relationships: {
                   type: :object,
@@ -522,12 +484,12 @@ RSpec.describe ::DXL::Schemas::Builder do
                             id: { type: :string, default: '0' },
                             type: { type: :string, default: :question },
                           },
-                        }
+                        },
                       },
                     },
-                  }
-                }
-              }
+                  },
+                },
+              },
             },
             included: {
               type: :array,
@@ -542,9 +504,9 @@ RSpec.describe ::DXL::Schemas::Builder do
                         type: :object,
                         properties: {
                           id: { type: :integer, nullable: true },
-                        }
-                      }
-                    }
+                        },
+                      },
+                    },
                   },
                   {
                     type: :object,
@@ -555,14 +517,14 @@ RSpec.describe ::DXL::Schemas::Builder do
                         type: :object,
                         properties: {
                           id: { type: :integer, nullable: true },
-                        }
+                        },
                       },
                     },
-                  }
-                ]
-              }
-            }
-          }
+                  },
+                ],
+              },
+            },
+          },
         }
 
         expect(subject).to eq(hash)

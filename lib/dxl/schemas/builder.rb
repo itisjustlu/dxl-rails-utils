@@ -14,10 +14,10 @@ module DXL
         {
           type: :object,
           properties: {
-            data: data
+            data: data,
           }.tap do |whitelist|
             whitelist[:included] = included if @included.present?
-          end
+          end,
         }
       end
 

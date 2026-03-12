@@ -13,128 +13,83 @@ module DXL
           end
 
           module ClassMethods
-            def find_gte(gte, column: nil)
-              @gte ||= []
-              @gte.push({ name: gte, column: column || lte })
-            end
-
-            def find_gt(gt, column: nil)
-              @gt ||= []
-              @gt.push({ name: gt, column: column || lte })
-            end
-
-            def find_lte(lte, column: nil)
-              @lte ||= []
-              @lte.push({ name: lte, column: column || lte })
-            end
-
-            def find_lt(lt, column: nil)
-              @lt ||= []
-              @lt.push({ name: lt, column: column || lt })
-            end
-
             def find_eq(*eq)
-              @eq ||= eq.flatten
+              @eq ||= []
+              @eq.concat(eq.flatten)
             end
 
             def find_not_eq(*not_eq)
-              @not_eq ||= not_eq.flatten
+              @not_eq ||= []
+              @not_eq.concat(not_eq.flatten)
             end
 
             def find_ilike(*ilike)
-              @ilike = ilike.flatten
+              @ilike ||= []
+              @ilike.concat(ilike.flatten)
             end
 
-            def gte = @gte
-            def gt = @gt
-            def lte = @lte
-            def lt = @lt
+            def find_gte(field, column: nil)
+              @gte ||= []
+              @gte.push({ name: field, column: column || field })
+            end
+
+            def find_gt(field, column: nil)
+              @gt ||= []
+              @gt.push({ name: field, column: column || field })
+            end
+
+            def find_lte(field, column: nil)
+              @lte ||= []
+              @lte.push({ name: field, column: column || field })
+            end
+
+            def find_lt(field, column: nil)
+              @lt ||= []
+              @lt.push({ name: field, column: column || field })
+            end
+
             def eq = @eq || []
             def not_eq = @not_eq || []
             def ilike = @ilike || []
+            def gte = @gte || []
+            def gt = @gt || []
+            def lte = @lte || []
+            def lt = @lt || []
+
+            # Returns a hash of { accepted_opts_key => ransack_key }.
+            # Includes legacy aliases so old callers don't need to change.
+            def comparison_key_map
+              map = {}
+              eq.each      { |f| map["#{f}_eq"]       = "#{f}_eq" }
+              not_eq.each  { |f| map["#{f}_not_eq"]   = "#{f}_not_eq" }
+              ilike.each   { |f| map["#{f}_i_cont"]   = "#{f}_i_cont"
+                                 map["#{f}_matching"]  = "#{f}_i_cont" }   # legacy
+              gte.each     { |f| map["#{f[:name]}_gteq"] = "#{f[:name]}_gteq"
+                                 map["#{f[:name]}_gte"]  = "#{f[:name]}_gteq" } # legacy
+              gt.each      { |f| map["#{f[:name]}_gt"]   = "#{f[:name]}_gt" }
+              lte.each     { |f| map["#{f[:name]}_lteq"] = "#{f[:name]}_lteq"
+                                 map["#{f[:name]}_lte"]  = "#{f[:name]}_lteq" } # legacy
+              lt.each      { |f| map["#{f[:name]}_lt"]   = "#{f[:name]}_lt" }
+              map
+            end
           end
 
           module InstanceMethods
             def apply_comparison
-              apply_eq
-              apply_not_eq
-              apply_ilike
-              apply_gte
-              apply_gt
-              apply_lte
-              apply_lt
-            end
+              mapping = self.class.comparison_key_map
+              return if mapping.empty?
 
-            private
+              ransack_params = context.opts.each_with_object({}) do |(key, value), hash|
+                next if value.nil? || value == ''
+                ransack_key = mapping[key.to_s]
+                next unless ransack_key
 
-            def apply_eq
-              self.class.eq.each do |eq|
-                value = context.opts["#{eq}_eq".to_sym]
-                unless value.nil? || value == ""
-                  context.relation = context.relation.where(eq => value)
-                end
+                hash[ransack_key] = value
               end
-            end
 
-            def apply_not_eq
-              self.class.not_eq.each do |not_eq|
-                value = context.opts["#{not_eq}_not_eq".to_sym]
-                unless value.nil? || value == ""
-                  context.relation = context.relation.where.not(not_eq => value)
-                end
-              end
-            end
+              return if ransack_params.empty?
 
-            def apply_ilike
-              self.class.ilike.each do |ilike|
-                if context.opts["#{ilike}_matching".to_sym].present?
-                  context.relation = context.relation.where("#{ilike} ILIKE ?", "%#{context.opts["#{ilike}_matching".to_sym]}%")
-                end
-              end
-            end
-
-            def apply_gte
-              return unless self.class.gte.present?
-
-              self.class.gte.each do |gte|
-                gte_symbol = "#{gte[:name].to_s.gsub('.', '_')}_gte".to_sym
-                if context.opts[gte_symbol].present?
-                  context.relation = context.relation.where("#{gte[:column]} >= ?", context.opts[gte_symbol])
-                end
-              end
-            end
-
-            def apply_gt
-              return unless self.class.gt.present?
-
-              self.class.gt.each do |gt|
-                gt_symbol = "#{gt[:name].to_s.gsub('.', '_')}_gt".to_sym
-                if context.opts[gt_symbol].present?
-                  context.relation = context.relation.where("#{gt[:column]} > ?", context.opts[gt_symbol])
-                end
-              end
-            end
-
-            def apply_lte
-              return unless self.class.lte.present?
-
-              self.class.lte.each do |lte|
-                lte_symbol = "#{lte[:name].to_s.gsub('.', '_')}_lte".to_sym
-                if context.opts[lte_symbol].present?
-                  context.relation = context.relation.where("#{lte[:column]} <= ?", context.opts[lte_symbol])
-                end
-              end
-            end
-
-            def apply_lt
-              return unless self.class.lt.present?
-
-              self.class.lt.each do |lt|
-                lt_symbol = "#{lt.to_s.gsub('.', '_')}_lt".to_sym
-                if context.opts[lt_symbol].present?
-                  context.relation = context.relation.where("#{lt} < ?", context.opts[lt_symbol])
-                end
-              end
+              context.relation = context.relation.ransack(ransack_params).result
             end
           end
         end

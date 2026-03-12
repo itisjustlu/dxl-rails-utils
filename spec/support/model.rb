@@ -84,15 +84,39 @@ class Question < ActiveRecord::Base
   validates :title, presence: true
 
   belongs_to :organization
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w(id title description organization_id created_at updated_at)
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w(organization)
+  end
 end
 
 class Organization < ActiveRecord::Base
   has_many :questions
   has_one :question
 
-  has_many :answers, class_name: 'Question', foreign_key: :organization_id
+  has_many :answers, class_name: 'Question'
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w(id title created_at updated_at)
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w(questions question answers)
+  end
 end
 
 class Comment < ActiveRecord::Base
   belongs_to :organization
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w(id title organization_id)
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w(organization)
+  end
 end

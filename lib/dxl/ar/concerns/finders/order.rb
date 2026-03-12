@@ -15,7 +15,11 @@ module DXL
           def direction = context.opts[:direction] || DEFAULT[:direction]
 
           def apply_order
-            context.relation = context.relation.order(order => direction)
+            if context.opts[:s].present?
+              context.relation = context.relation.ransack(s: context.opts[:s]).result
+            else
+              context.relation = context.relation.order(order => direction)
+            end
           end
         end
       end

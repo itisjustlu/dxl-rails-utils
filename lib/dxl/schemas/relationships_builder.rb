@@ -9,7 +9,7 @@ module DXL
       end
 
       def call
-        return nil unless @relationships.present?
+        return nil if @relationships.blank?
 
         data
       end
@@ -23,8 +23,8 @@ module DXL
             type: :object,
             nullable: true,
             properties: {
-              data: item_data(relationship_value)
-            }
+              data: item_data(relationship_value),
+            },
           }
         end
       end
@@ -40,8 +40,8 @@ module DXL
           nullable: true,
           properties: {
             id: { type: :string, default: '0' },
-            type: { type: :string, default: relationship_value.key }
-          }
+            type: { type: :string, default: relationship_value.key },
+          },
         }
       end
 
@@ -49,7 +49,7 @@ module DXL
         {
           type: :array,
           nullable: true,
-          items: single_item_data(relationship_value)
+          items: single_item_data(relationship_value),
         }
       end
     end

@@ -6,8 +6,10 @@ gemspec
 
 gem 'interactor', '~> 3.2'
 gem 'activerecord', '>= 8'
+gem 'railties', '>= 8'
 gem 'activesupport', '>= 8'
 gem 'faraday', '~> 2.14.0'
+gem 'ransack'
 gem 'jsonapi-serializer', '~> 2.2.0'
 
 group :test do

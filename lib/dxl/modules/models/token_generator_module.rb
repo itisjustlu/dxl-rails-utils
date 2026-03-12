@@ -34,7 +34,7 @@ module DXL
         def generate_token
           return "#{prefix}#{rand.to_s[2..length]}" if only_numbers
           content = SecureRandom.alphanumeric(length)
-          return content unless prefix.present?
+          return content if prefix.blank?
           "#{prefix}-#{content}"
         end
       end

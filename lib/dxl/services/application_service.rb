@@ -8,7 +8,7 @@ module DXL
       class << self
         def behave_as(*mods)
           mods.flatten.each do |mod|
-            self.send(:include, "::DXL::Modules::#{mod.to_s.camelcase}Module".constantize)
+            send(:include, "::DXL::Modules::#{mod.to_s.camelcase}Module".constantize)
           end
         end
       end

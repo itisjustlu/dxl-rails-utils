@@ -1,3 +1,4 @@
+require 'ransack'
 require 'dxl/ar/configuration'
 require 'dxl/ar/concerns/finders/comparison'
 require 'dxl/ar/concerns/finders/associations'

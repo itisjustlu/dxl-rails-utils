@@ -19,8 +19,8 @@ module DXL
         {
           type: :array,
           items: {
-            anyOf: items
-          }
+            anyOf: items,
+          },
         }
       end
 
@@ -43,7 +43,6 @@ module DXL
                 constantize
             end
           end
-
 
           relationship_value = new_serializer.relationships_to_serialize[last_relationship]
           klass = fetch_klass(new_klass, relationship_value)
