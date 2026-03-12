@@ -8,6 +8,7 @@ ActiveRecord::Schema.define do
     t.string :description
     t.json :data
     t.integer :organization_id
+    t.integer :status, default: 0
     t.timestamps
   end
 

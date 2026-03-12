@@ -84,29 +84,66 @@ module DXL
                 ransack_key = mapping[key.to_s]
                 next unless ransack_key
 
+                ransack_key, value = normalize_for_ransack(ransack_key, value)
                 hash[ransack_key] = value
               end
 
               return if ransack_params.empty?
 
-              model_class = context.object_class || context.relation.klass
-              defined_enums = model_class.defined_enums
-              enum_params, standard_params = ransack_params.partition do |key, _|
-                key_s = key.to_s
-                (key_s.end_with?('_eq') && defined_enums.key?(key_s.delete_suffix('_eq'))) ||
-                  (key_s.end_with?('_not_eq') && defined_enums.key?(key_s.delete_suffix('_not_eq')))
+              context.relation = context.relation.ransack(ransack_params).result
+            end
+
+            private
+
+            def normalize_for_ransack(key, value)
+              key_s = key.to_s
+
+              # _not_eq must be checked BEFORE _eq since it also ends with '_eq'
+              if key_s.end_with?('_not_eq')
+                field = key_s.delete_suffix('_not_eq')
+                return ["#{field}_not_in", cast_enum_values(value, field)] if value.is_a?(Array)
+
+                return [key, cast_enum_value(value, field)]
               end
 
-              enum_params.each do |key, value|
-                key_s = key.to_s
-                if key_s.end_with?('_not_eq')
-                  context.relation = context.relation.where.not(key_s.delete_suffix('_not_eq') => value)
-                else
-                  context.relation = context.relation.where(key_s.delete_suffix('_eq') => value)
-                end
+              if key_s.end_with?('_eq')
+                field = key_s.delete_suffix('_eq')
+                return ["#{field}_in", cast_enum_values(value, field)] if value.is_a?(Array)
+
+                return [key, cast_enum_value(value, field)]
               end
 
-              context.relation = context.relation.ransack(standard_params.to_h).result if standard_params.any?
+              [key, value]
+            end
+
+            def enum_map_for(field)
+              klass = context.object_class || context.relation.klass
+
+              # Direct attribute on the model
+              return klass.defined_enums[field] if klass.defined_enums.key?(field)
+
+              # Joined table field like 'questions_status' — look up the association's enum
+              klass.reflect_on_all_associations.each do |assoc|
+                assoc_name = assoc.name.to_s
+                next unless field.start_with?("#{assoc_name}_")
+
+                attr = field.delete_prefix("#{assoc_name}_")
+                enum_map = assoc.klass.defined_enums[attr]
+                return enum_map if enum_map
+              end
+
+              nil
+            end
+
+            def cast_enum_value(value, field)
+              enum_map = enum_map_for(field)
+              return value unless enum_map
+
+              enum_map[value.to_s] || value
+            end
+
+            def cast_enum_values(values, field)
+              values.map { |v| cast_enum_value(v, field) }
             end
           end
         end

@@ -85,8 +85,10 @@ class Question < ActiveRecord::Base
 
   belongs_to :organization
 
+  enum :status, pending: 0, active: 1
+
   def self.ransackable_attributes(_auth_object = nil)
-    %w(id title description organization_id created_at updated_at)
+    %w(id title description organization_id status created_at updated_at)
   end
 
   def self.ransackable_associations(_auth_object = nil)

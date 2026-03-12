@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class OrganizationFinder < ::DXL::AR::Finder
-  find_eq :title, :status, :kind
+  find_eq :title, :status, :kind, :questions_status
   find_not_eq :title, :status
   find_ilike :title
   find_ilike :questions_title
@@ -223,6 +223,46 @@ RSpec.describe ::DXL::AR::Finder do
         expect(organizations.map(&:title)).to contain_exactly('Pending Org', 'Active Org')
       end
     end
+
+    context 'integer-backed enum with array of values' do
+      let(:opts) { { status_eq: %w[active archived] } }
+
+      it 'filters using IN' do
+        expect(organizations.map(&:title)).to contain_exactly('Active Org', 'Archived Org')
+      end
+    end
+
+    context 'integer-backed enum exclusion with array' do
+      let(:opts) { { status_not_eq: %w[active archived] } }
+
+      it 'excludes using NOT IN' do
+        expect(organizations.map(&:title)).to contain_exactly('Pending Org')
+      end
+    end
+  end
+
+  describe 'array comparison' do
+    subject { OrganizationFinder.call(key: :organizations, object_class: Organization, opts: opts) }
+
+    let!(:org_alpha) { Organization.create(title: 'Alpha') }
+    let!(:org_beta)  { Organization.create(title: 'Beta') }
+    let!(:org_gamma) { Organization.create(title: 'Gamma') }
+
+    context 'find_eq with array of values' do
+      let(:opts) { { title_eq: %w[Alpha Gamma] } }
+
+      it 'filters using IN' do
+        expect(organizations.map(&:title)).to contain_exactly('Alpha', 'Gamma')
+      end
+    end
+
+    context 'find_not_eq with array of values' do
+      let(:opts) { { title_not_eq: %w[Alpha Beta] } }
+
+      it 'excludes using NOT IN' do
+        expect(organizations.map(&:title)).to contain_exactly('Gamma')
+      end
+    end
   end
 
   describe 'legacy parameter aliases' do
@@ -271,6 +311,32 @@ RSpec.describe ::DXL::AR::Finder do
     it 'filters by associated table column' do
       expect(organizations.size).to eq(1)
       expect(organizations.first.title).to eq('Alpha')
+    end
+  end
+
+  describe 'find_eq on associated table enum' do
+    subject { OrganizationFinder.call(key: :organizations, object_class: Organization, opts: opts) }
+
+    let!(:org_alpha) { Organization.create(title: 'Alpha') }
+    let!(:org_beta)  { Organization.create(title: 'Beta') }
+    let!(:question_1) { Question.create(title: 'Q1', status: :active,  organization: org_alpha) }
+    let!(:question_2) { Question.create(title: 'Q2', status: :pending, organization: org_beta) }
+
+    context 'with string enum value' do
+      let(:opts) { { questions_status_eq: 'active' } }
+
+      it 'filters by associated enum value' do
+        expect(organizations.size).to eq(1)
+        expect(organizations.first.title).to eq('Alpha')
+      end
+    end
+
+    context 'with array of enum values' do
+      let(:opts) { { questions_status_eq: %w[active pending] } }
+
+      it 'filters using IN on associated enum' do
+        expect(organizations.map(&:title)).to contain_exactly('Alpha', 'Beta')
+      end
     end
   end
 
