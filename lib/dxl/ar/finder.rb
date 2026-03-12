@@ -39,7 +39,7 @@ module DXL
 
       def init
         context.relation = object_class.all
-        context.opts = opts.respond_to?(:to_unsafe_h) ? opts.to_unsafe_h : opts.to_h
+        context.opts = opts.respond_to?(:to_unsafe_h) ? opts.to_unsafe_h : opts.to_h.with_indifferent_access
       end
 
       def apply_concerns

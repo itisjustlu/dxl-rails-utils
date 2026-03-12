@@ -352,6 +352,62 @@ RSpec.describe ::DXL::AR::Finder do
     end
   end
 
+  describe 'pagination with filters' do
+    subject { OrganizationFinder.call(key: :organizations, object_class: Organization, opts: opts) }
+
+    before do
+      5.times { |i| Organization.create(title: 'Match', status: :active) }
+      3.times { |i| Organization.create(title: 'Other', status: :pending) }
+    end
+
+    context 'with string keys (ActionController::Parameters style)' do
+      let(:opts) { { 'title_eq' => 'Match', 'page' => '1', 'per' => '2' } }
+
+      it 'applies per correctly' do
+        expect(organizations.size).to eq(2)
+      end
+    end
+
+    context 'per limits results within a find_eq filter' do
+      let(:opts) { { title_eq: 'Match', page: 1, per: 2 } }
+
+      it 'returns only per records' do
+        expect(organizations.size).to eq(2)
+      end
+
+      it 'respects page' do
+        result_p1 = OrganizationFinder.call(key: :organizations, object_class: Organization, opts: { title_eq: 'Match', page: 1, per: 2 }).organizations
+        result_p2 = OrganizationFinder.call(key: :organizations, object_class: Organization, opts: { title_eq: 'Match', page: 2, per: 2 }).organizations
+        result_p3 = OrganizationFinder.call(key: :organizations, object_class: Organization, opts: { title_eq: 'Match', page: 3, per: 2 }).organizations
+
+        expect(result_p1.size).to eq(2)
+        expect(result_p2.size).to eq(2)
+        expect(result_p3.size).to eq(1)
+        expect((result_p1 + result_p2 + result_p3).map(&:id).uniq.size).to eq(5)
+      end
+    end
+
+    context 'per limits results within an enum filter' do
+      let(:opts) { { status_eq: 'active', page: 1, per: 3 } }
+
+      it 'returns only per records matching the enum' do
+        expect(organizations.size).to eq(3)
+        expect(organizations.map(&:title).uniq).to eq(['Match'])
+      end
+    end
+
+    context 'total_pages reflects filtered count' do
+      subject { OrganizationFinder.call(key: :organizations, object_class: Organization, opts: opts, count: true) }
+
+      let(:opts) { { title_eq: 'Match', page: 1, per: 2 } }
+
+      it 'counts only filtered records' do
+        expect(subject.total_items).to eq(5)
+        expect(subject.total_pages).to eq(3)
+      end
+    end
+  end
+
   describe 'default order' do
     let!(:org_alpha) { Organization.create(title: 'Alpha') }
     let!(:org_beta) { Organization.create(title: 'Beta') }
